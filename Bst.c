@@ -69,7 +69,7 @@ int rotateNodeRight(struct BstNode *node);
 void print(char prefix[], char childrenPrefix[], struct BstNode *node);
 
 // Znajduje nastepnik elementu
-struct BstNode *findSuccessor(struct BstNode *element);
+extern struct BstNode *findSuccessor(struct BstNode *element);
 
 // Zwraca najmniejszy klucz zaczynajac od danego elementu
 extern struct BstNode *findMinKey(struct BstNode *element);
@@ -265,21 +265,4 @@ void print(char* prefix, char* childrenPrefix, struct BstNode *node)
 			print(addToPrefix, addToChildrenPrefix, node->right);
 		}
 	}
-}
-
-//Znajduje nastepnik elementu
-struct BstNode* findSuccessor(struct BstNode* element) {
-	//Sprawdzenie czy element ma prawego potomka
-	if (element->right != NULL) {
-		//Zwrocenie nastepnika
-		return findMinKey(element->right);
-	}
-	//Odczyt rodzica danego elementu
-	struct BstNode* elementParent = element->parent;
-	//Pętla szukajaca nastepnika
-	while (elementParent != NULL && elementParent->left != element) {
-		element = elementParent;
-		elementParent = elementParent->parent;
-	}
-	return elementParent;
 }
