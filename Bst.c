@@ -15,6 +15,7 @@ struct BstNode
 
 // Korzen drzewa
 struct BstNode *root = NULL;
+struct BstNode **pointerToRoot = &root;
 
 // Liczba wezlow
 int count;
@@ -22,11 +23,15 @@ int count;
 // Odczytuje do drzewa, dane z pliku
 void readFromFile(char filename[20]);
 
+//Ustawia rodzica dla nowego elementu
+extern void setParentForElement(struct BstNode** root, struct BstNode* parent, struct BstNode* newElement);
+
 // Znajduje wskaznik na dany element
 extern struct BstNode *findPointerToElement(int value, struct BstNode* root);
 
 //Znajduje wskaznik na rodzica nowego elementu
 extern struct BstNode *findParentForElement(int value, struct BstNode* root);
+
 int readUserInput();
 
 void addElement(int value);
@@ -145,18 +150,8 @@ void addElement(int value)
 	newElement->right = NULL;
 	count++;
 
-	// Sprawdzenie czy drzewo jest puste
-	if (parent == NULL)
-	{
-		root = newElement;
-	}
-	else
-	{
-		if (value > parent->key)
-			parent->right = newElement;
-		else
-			parent->left = newElement;
-	}
+	//Ustawienie nowego elementu w rodzicu 
+	setParentForElement(pointerToRoot, parent, newElement);
 }
 
 // Wyswietla zawartosc BST
