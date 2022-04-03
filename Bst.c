@@ -88,10 +88,9 @@ int main()
 		printf("3. Usun wybrany element\n");
 		printf("4. Wyswietl wszystkie wartosci\n");
 		printf("5. Znajdz wartosc w drzewie\n");
-		printf("6. Wygeneruj wartosci losowe\n");
-		printf("7. Wykonaj rownowazenie algorytmem DSW\n");
-		printf("8. Wykonaj rotacje w prawo dla wybranego elementu\n");
-		printf("9. Wykonaj rotacje w lewo dla wybranego elementu\n");
+		printf("6. Wykonaj rownowazenie algorytmem DSW\n");
+		printf("7. Wykonaj rotacje w prawo dla wybranego elementu\n");
+		printf("8. Wykonaj rotacje w lewo dla wybranego elementu\n");
 		printf("0. Cofnij do menu glownego\n");
 		printf("Podaj odpowiednia liczbe\n");
 
@@ -111,6 +110,16 @@ int main()
 				break;
 			}
 			addElement(userInput);
+		}; break;
+		case 3:
+		{
+			printf("Podaj wartosc ");
+			userInput = readUserInput();
+			if (userInput == -1)
+			{
+				break;
+			}
+			deleteElement(userInput);
 		}; break;
 		case 4:
 			showElements(); break;
@@ -256,4 +265,30 @@ void print(char* prefix, char* childrenPrefix, struct BstNode *node)
 			print(addToPrefix, addToChildrenPrefix, node->right);
 		}
 	}
+}
+
+//Znajduje nastepnik elementu
+struct BstNode* findSuccessor(struct BstNode* element) {
+	//Sprawdzenie czy element ma prawego potomka
+	if (element->right != NULL) {
+		//Zwrocenie nastepnika
+		return findMinKey(element->right);
+	}
+	//Odczyt rodzica danego elementu
+	struct BstNode* elementParent = element->parent;
+	//Pętla szukajaca nastepnika
+	while (elementParent != NULL && elementParent->left != element) {
+		element = elementParent;
+		elementParent = elementParent->parent;
+	}
+	return elementParent;
+}
+
+//Wyszukiwanie najmniejszej wartosci w drzewie od danego elementu
+struct BstNode* findMinKey(struct BstNode* element) {
+	//Pętla przechodząca po lewych potomkach danego elementu
+	while (element->left != NULL) {
+		element = element->left;
+	}
+	return element;
 }
