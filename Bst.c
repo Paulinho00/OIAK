@@ -20,6 +20,8 @@ struct BstNode **pointerToRoot = &root;
 // Liczba wezlow
 int count = 0;
 
+int readUserInput();
+
 // Odczytuje do drzewa, dane z pliku
 void readFromFile(char filename[20]);
 
@@ -34,8 +36,6 @@ extern struct BstNode *findPointerToElement(int value, struct BstNode* root);
 
 //Znajduje wskaznik na rodzica nowego elementu
 extern struct BstNode *findParentForElement(int value, struct BstNode* root);
-
-int readUserInput();
 
 void addElement(int value);
 
@@ -150,6 +150,60 @@ void addElement(int value)
 
 	//Ustawienie nowego elementu w rodzicu 
 	setParentForElement(pointerToRoot, parent, newElement);
+}
+
+//Usuwa wybrany element
+void deleteElement(int value) {
+	//Wyszukanie wskaznika na usuwany element
+	struct BstNode* deleteNode = findPointerToElement(value, root);
+	if (deleteNode != NULL) {
+		struct BstNode* next;
+		struct BstNode* child;
+		//Sprawdzenie czy element ma potomka
+		if (deleteNode->left == NULL || deleteNode->right == NULL) {
+			next = deleteNode;
+		}
+		else {
+			//Znalezienie nastepnika
+			next = findSuccessor(deleteNode);
+		}
+
+		//Odczyt jedynego potomka nastepnika
+		if (next->left != NULL) child = next->left;
+		else child = next->right;
+
+		//Sprawdzenie czy nastepnik ma jakiegos potomka
+		if (child != NULL) {
+			//Dodanie do dziecka rodzica nastepnika, 
+			child->parent = next->parent;
+		}
+
+		//Sprawdzenie czy nastepnik ma rodzica
+		if (next->parent == NULL) {
+			//Zmiana korzenia
+			root = child;
+		}
+		else {
+			//Sprawdzenie ktorym potomkiem jest nastepnik i podmiana u potomka nastepnika
+			if (next == next->parent->left)  next->parent->left = child;
+			else next->parent->right = child;
+		}
+
+		//Sprawdzenie czy trzeba zamieniac pozycje nastepnika i usuwanego elementu
+		if (deleteNode != next) {
+			deleteNode->key = next->key;
+			//Zwolnienie pamieci
+			free(next);
+		}
+		else {
+			//Zwolnienie pamieci
+			free(deleteNode);
+		}
+		count--;
+	}
+	else {
+		printf("Nie ma takiego elementu\n");
+	}
 }
 
 // Wyswietla zawartosc BST
