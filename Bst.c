@@ -18,10 +18,13 @@ struct BstNode *root = NULL;
 struct BstNode **pointerToRoot = &root;
 
 // Liczba wezlow
-int count;
+int count = 0;
 
 // Odczytuje do drzewa, dane z pliku
 void readFromFile(char filename[20]);
+
+//Konstruktor dla struktury
+extern struct BstNode *constructorINT(int value, struct BstNode* parent, int* count);
 
 //Ustawia rodzica dla nowego elementu
 extern void setParentForElement(struct BstNode** root, struct BstNode* parent, struct BstNode* newElement);
@@ -143,12 +146,7 @@ void addElement(int value)
 	struct BstNode *parent = findParentForElement(value, root);
 
 	// Tworzenie nowego elementu
-	struct BstNode *newElement = (struct BstNode*) malloc(sizeof(struct BstNode));
-	newElement->key = value;
-	newElement->parent = parent;
-	newElement->left = NULL;
-	newElement->right = NULL;
-	count++;
+	struct BstNode *newElement = constructorINT(value, parent, &count);
 
 	//Ustawienie nowego elementu w rodzicu 
 	setParentForElement(pointerToRoot, parent, newElement);
