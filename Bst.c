@@ -25,6 +25,8 @@ void readFromFile(char filename[20]);
 // Znajduje wskaznik na dany element
 extern struct BstNode *findPointerToElement(int value, struct BstNode* root);
 
+//Znajduje wskaznik na rodzica nowego elementu
+extern struct BstNode *findParentForElement(int value, struct BstNode* root);
 int readUserInput();
 
 void addElement(int value);
@@ -132,17 +134,8 @@ void addElement(int value)
 		return;
 	}
 
-	struct BstNode *parent = NULL;
-	struct BstNode *currentNode = root;
 	// Wyszukanie rodzica dla nowego elementu
-	while (currentNode != NULL)
-	{
-		parent = currentNode;
-		if (value > currentNode->key)
-			currentNode = currentNode->right;
-		else
-			currentNode = currentNode->left;
-	}
+	struct BstNode *parent = findParentForElement(value, root);
 
 	// Tworzenie nowego elementu
 	struct BstNode *newElement = (struct BstNode*) malloc(sizeof(struct BstNode));
@@ -179,7 +172,7 @@ void print(char* prefix, char* childrenPrefix, struct BstNode *node)
 {
 	if (node != NULL)
 	{
-		printf("%s[%d]\n", prefix, node->key);
+		printf(" %s[%d]\n", prefix, node->key);
 		struct BstNode *next;
 		if (node->left != NULL)
 		{
@@ -191,7 +184,7 @@ void print(char* prefix, char* childrenPrefix, struct BstNode *node)
 				strcat(addToPrefix, " L--");
 				char *addToChildrenPrefix = (char*) malloc(strlen(childrenPrefix)*sizeof(char)+6);
 				strcpy(addToChildrenPrefix, childrenPrefix);
-				strcat(addToChildrenPrefix, "  |   ");
+				strcat(addToChildrenPrefix, " |   ");
 				print(addToPrefix, addToChildrenPrefix, node->left);
 			}
 			else
