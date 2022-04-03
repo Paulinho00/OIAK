@@ -72,7 +72,7 @@ void print(char prefix[], char childrenPrefix[], struct BstNode *node);
 struct BstNode *findSuccessor(struct BstNode *element);
 
 // Zwraca najmniejszy klucz zaczynajac od danego elementu
-struct BstNode *findMinKey(struct BstNode *element);
+extern struct BstNode *findMinKey(struct BstNode *element);
 
 // Usuwa cale drzewo
 void dropTree(struct BstNode *element);
@@ -282,13 +282,4 @@ struct BstNode* findSuccessor(struct BstNode* element) {
 		elementParent = elementParent->parent;
 	}
 	return elementParent;
-}
-
-//Wyszukiwanie najmniejszej wartosci w drzewie od danego elementu
-struct BstNode* findMinKey(struct BstNode* element) {
-	//Pętla przechodząca po lewych potomkach danego elementu
-	while (element->left != NULL) {
-		element = element->left;
-	}
-	return element;
 }
