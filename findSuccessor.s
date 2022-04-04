@@ -31,6 +31,7 @@ jmp successorLoop
 
 
 minKey:
+mov 8(%eax), %eax
 call findMinKey
 jmp end
 

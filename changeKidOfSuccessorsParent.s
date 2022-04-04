@@ -12,7 +12,7 @@ pushl %ebp
 movl %esp, %ebp
 
 //Odczyt wskaznika na wskaznik korzenia
-movl 16(%ebp), %eax
+movl 8(%ebp), %eax
 movl %eax, root
 //Odczyt wskaznika na dziecko nastepnika
 movl 12(%ebp), %eax

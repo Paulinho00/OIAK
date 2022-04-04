@@ -10,10 +10,11 @@ pushl %ebp
 movl %esp, %ebp
 
 //Odczyt zmiennej przechowujacej wskaznik na wskaznik na nastepnik
+movl 8(%ebp), %eax
 movl %eax, next
 
 //Odczyt zmiennej przechowujacej wskaznik na usuwany element
-movl 8(%ebp), %eax
+movl 12(%ebp), %eax
 movl %eax, deleteNode
 
 //Sprawdzenie czy usuwany element ma dzieci

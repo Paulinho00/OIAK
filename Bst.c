@@ -178,7 +178,7 @@ void deleteElement(int value) {
 		next = findNextElement(&next, deleteNode);
 
 		//Odczyt jedynego potomka nastepnika
-		child = returnOnlyChild(deleteNode);
+		child = returnOnlyChild(next);
 
 		//Sprawdzenie czy nastepnik ma jakiegos potomka
 		if (child != NULL) {
