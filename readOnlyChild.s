@@ -1,5 +1,0 @@
-.text
-
-.global readOnlyChild
-
-readOnlyChild:

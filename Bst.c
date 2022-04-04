@@ -42,6 +42,9 @@ void addElement(int value);
 //Wyszukuje nastepnik przy usuwaniu
 extern struct BstNode *findNextElement(struct BstNode** next, struct BstNode* deleteNode);
 
+//Zwraca wskaznik na jedyne dziecko elementu
+extern struct BstNode *returnOnlyChild(struct BstNode* deleteNode);
+
 // Usuwa wybrany element
 void deleteElement(int value);
 
@@ -172,8 +175,7 @@ void deleteElement(int value) {
 		next = findNextElement(&next, deleteNode);
 
 		//Odczyt jedynego potomka nastepnika
-		if (next->left != NULL) child = next->left;
-		else child = next->right;
+		child = returnOnlyChild(deleteNode);
 
 		//Sprawdzenie czy nastepnik ma jakiegos potomka
 		if (child != NULL) {
