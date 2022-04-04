@@ -45,6 +45,9 @@ extern struct BstNode *findNextElement(struct BstNode** next, struct BstNode* de
 //Zwraca wskaznik na jedyne dziecko elementu
 extern struct BstNode *returnOnlyChild(struct BstNode* deleteNode);
 
+//Zmienia wskaznik na dziecko w rodzicu nastepnika, przy usuwaniu
+extern void changeKidOfSuccessorsParent(struct BstNode** pointerToRoot, struct BstNode* child, struct BstNode** next);
+
 // Usuwa wybrany element
 void deleteElement(int value);
 
@@ -183,16 +186,8 @@ void deleteElement(int value) {
 			child->parent = next->parent;
 		}
 
-		//Sprawdzenie czy nastepnik ma rodzica
-		if (next->parent == NULL) {
-			//Zmiana korzenia
-			root = child;
-		}
-		else {
-			//Sprawdzenie ktorym potomkiem jest nastepnik i podmiana u potomka nastepnika
-			if (next == next->parent->left)  next->parent->left = child;
-			else next->parent->right = child;
-		}
+		//Zmiana wskaznikow na dzieci w rodzicu nastepnika
+		changeKidOfSuccessorsParent(pointerToRoot, child, &next);
 
 		//Sprawdzenie czy trzeba zamieniac pozycje nastepnika i usuwanego elementu
 		if (deleteNode != next) {
