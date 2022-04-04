@@ -39,6 +39,9 @@ extern struct BstNode *findParentForElement(int value, struct BstNode* root);
 
 void addElement(int value);
 
+//Wyszukuje nastepnik przy usuwaniu
+extern struct BstNode *findNextElement(struct BstNode** next, struct BstNode* deleteNode);
+
 // Usuwa wybrany element
 void deleteElement(int value);
 
@@ -47,9 +50,6 @@ void showElements();
 
 // Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
 void findElement(int value);
-
-// Generowanie okreslonej liczby wartosci w strukturze
-void fillBst(int amount);
 
 // Rownowazenie drzewa metoda DSW
 void dswBalance();
@@ -169,13 +169,7 @@ void deleteElement(int value) {
 		struct BstNode* next;
 		struct BstNode* child;
 		//Sprawdzenie czy element ma potomka
-		if (deleteNode->left == NULL || deleteNode->right == NULL) {
-			next = deleteNode;
-		}
-		else {
-			//Znalezienie nastepnika
-			next = findSuccessor(deleteNode);
-		}
+		next = findNextElement(&next, deleteNode);
 
 		//Odczyt jedynego potomka nastepnika
 		if (next->left != NULL) child = next->left;
