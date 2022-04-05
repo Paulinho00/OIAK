@@ -250,43 +250,10 @@ void rotateLeft(int value) {
 void rotateRight(int value) {
 	struct BstNode* node = findPointerToElement(value, root);
 	//Wykonanie rotacji
-	int output = rotateNodeRight(node);
+	int output = rotateNodeRight(node, pointerToRoot);
 	if (output == -1) printf("Nie ma takiego elementu\n");
 	else if(output == -2) printf("Niemozliwe jest wykonanie takiej rotacji dla tego elementu\n");
 	
-}
-
-//Rotacja w prawo na wybranym elemencie
-int rotateNodeRight(struct BstNode* node) {
-	//Sprawdzenie czy dany element istnieje
-	if (node != NULL) {
-		//Sprawdzenie czy jest spelniony warunek konieczny do rotacji
-		if (node->left == NULL) {
-			return -2;
-		}
-		else {
-			//Rotacja poprzez zmiane wskaznikow na dzieci i rodzicow
-			struct BstNode* leftChild = node->left;
-			node->left = leftChild->right;
-			if (leftChild->right != NULL) leftChild->right->parent = node;
-			leftChild->parent = node->parent;
-
-			//Sprawdzenie czy element jest korzeniem
-			if (node->parent != NULL) {
-				if (node->parent->left == node) node->parent->left = leftChild;
-				else node->parent->right = leftChild;
-			}
-			else {
-				//Zmiana korzenia
-				root = leftChild;
-			}
-			leftChild->right = node;
-			node->parent = leftChild;
-		}
-	}
-	else {
-		return -1;
-	}
 }
 
 
@@ -329,14 +296,13 @@ void dswBalance() {
 	while(node != NULL){
 		if (node->left != NULL) {
 			//Rotacja w prawo
-			rotateNodeRight(node);
+			rotateNodeRight(node, pointerToRoot);
 			node = node->parent;
 		}
 		else {
 			node = node->right;
 		}
 	}
-	showElements();
 	//Obliczanie ilosci wierzcholkow na poziomach calkowicie zapelnionych
 	int i;
 	int h = binaryLogarithm(count+1);

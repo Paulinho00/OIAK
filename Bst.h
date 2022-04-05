@@ -51,7 +51,7 @@ int rotateNodeLeft(struct BstNode *node);
 void rotateRight(int value);
 
 // Rotacja w prawo na wybranym elemencie
-int rotateNodeRight(struct BstNode *node);
+extern int rotateNodeRight(struct BstNode *node, struct BstNode** root);
 
 void print(char prefix[], char childrenPrefix[], struct BstNode *node);
 
