@@ -48,13 +48,13 @@ extern struct BstNode *returnOnlyChild(struct BstNode* deleteNode);
 //Zmienia wskaznik na dziecko w rodzicu nastepnika, przy usuwaniu
 extern void changeKidOfSuccessorsParent(struct BstNode** pointerToRoot, struct BstNode* child, struct BstNode** next);
 
-//Usuwanie wezla
+//Zwalnianie pamieci
 extern void destructor(struct BstNode* deleteNode, struct BstNode* next, int* count);
 
-// Usuwa wybrany element
+//Usuwa wybrany element
 void deleteElement(int value);
 
-// Wyswietla zawartosc BST
+//Wyswietla zawartosc BST
 void showElements();
 
 // Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
@@ -132,6 +132,15 @@ int main()
 		}; break;
 		case 4:
 			showElements(); break;
+		case 5:{
+			printf("Podaj wartosc ");
+			userInput = readUserInput();
+			if (userInput == -1)
+			{
+				break;
+			}
+			findElement(userInput);
+		}; break;
 		case 0:
 			return;
 		default:
@@ -206,6 +215,28 @@ void showElements()
 	printf("\n");
 
 	print("","", root);
+}
+
+//Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
+void findElement(int value) {
+	//Wyszukanie wskaznika na element
+	struct BstNode* element = findPointerToElement(value, root);
+	if (element != NULL) {
+		//Wyswietlenie odpowiedniego komunikatu
+		printf("Element o wartosci : %d\n", value);
+		//Wyswietlenie informacji o rodzicu
+		if (element != root) printf("Rodzic: %d\n",element->parent->key);
+		else printf("Rodzic: Brak\n");
+		//Wyswietlenie informacji o lewym nastepniku
+		if (element->left != NULL) printf("Lewy nastepnik: %d\n", element->left->key);
+		else printf("Lewy nastepnik: Brak\n");
+		//Wyswietleie informacji o prawym nastepniku
+		if (element->right != NULL) printf("Prawy nastepnik: %d\n", element->right->key);
+		else printf("Prawy nastepnik: Brak\n\n");
+	}
+	else {
+		printf("Nie ma takiego elementu\n");
+	}
 }
 
 // Funkcja wypisujaca potomkow danego elementu
