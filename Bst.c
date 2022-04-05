@@ -77,6 +77,12 @@ int rotateNodeRight(struct BstNode *node);
 
 void print(char prefix[], char childrenPrefix[], struct BstNode *node);
 
+//Funckaj zwracajaca logarytm binarny z liczby
+extern int binaryLogarithm(int number);
+
+//Funkcja obliczajaca potege liczby
+extern int pow(int base, int exponent);
+
 // Znajduje nastepnik elementu
 extern struct BstNode *findSuccessor(struct BstNode *element);
 
@@ -140,6 +146,25 @@ int main()
 				break;
 			}
 			findElement(userInput);
+		}; break;
+		case 6: dswBalance(); break;
+		case 7:{
+			printf("Podaj wartosc ");
+			userInput = readUserInput();
+			if (userInput == -1)
+			{
+				break;
+			}
+			rotateRight(userInput);
+		}; break;
+		case 8:{
+			printf("Podaj wartosc ");
+			userInput = readUserInput();
+			if (userInput == -1)
+			{
+				break;
+			}
+			rotateLeft(userInput);
 		}; break;
 		case 0:
 			return;
@@ -279,6 +304,128 @@ void print(char* prefix, char* childrenPrefix, struct BstNode *node)
 			strcpy(addToChildrenPrefix, childrenPrefix);
 			strcat(addToChildrenPrefix, "      ");
 			print(addToPrefix, addToChildrenPrefix, node->right);
+		}
+	}
+}
+
+//Rotacja w lewo na wybranym elemencie
+void rotateLeft(int value) {
+	struct BstNode* node = findPointerToElement(value, root);
+	//Wykonanie rotacji
+	int output = rotateNodeLeft(node);
+	if (output == -1) printf("Nie ma takiego elementu\n");
+	else if (output == -2) printf("Niemozliwe jest wykonanie takiej rotacji dla tego elementu\n");
+}
+
+//Rotacja w prawo na wybranym elemencie
+void rotateRight(int value) {
+	struct BstNode* node = findPointerToElement(value, root);
+	//Wykonanie rotacji
+	int output = rotateNodeRight(node);
+	if (output == -1) printf("Nie ma takiego elementu\n");
+	else if(output == -2) printf("Niemozliwe jest wykonanie takiej rotacji dla tego elementu\n");
+	
+}
+
+//Rotacja w prawo na wybranym elemencie
+int rotateNodeRight(struct BstNode* node) {
+	//Sprawdzenie czy dany element istnieje
+	if (node != NULL) {
+		//Sprawdzenie czy jest spelniony warunek konieczny do rotacji
+		if (node->left == NULL) {
+			return -2;
+		}
+		else {
+			//Rotacja poprzez zmiane wskaznikow na dzieci i rodzicow
+			struct BstNode* leftChild = node->left;
+			node->left = leftChild->right;
+			if (leftChild->right != NULL) leftChild->right->parent = node;
+			leftChild->parent = node->parent;
+
+			//Sprawdzenie czy element jest korzeniem
+			if (node->parent != NULL) {
+				if (node->parent->left == node) node->parent->left = leftChild;
+				else node->parent->right = leftChild;
+			}
+			else {
+				//Zmiana korzenia
+				root = leftChild;
+			}
+			leftChild->right = node;
+			node->parent = leftChild;
+		}
+	}
+	else {
+		return -1;
+	}
+}
+
+
+//Rotacja w lewo na wybranym elemencie
+int rotateNodeLeft(struct BstNode* node) {
+	//Sprawdzenie czy dany element istnieje
+	if (node != NULL) {
+		//Sprawdzenie czy jest spelniony warunek konieczny do rotacji
+		if (node->right == NULL) {
+			return -2;
+		}
+		else {
+
+			//Rotacja poprzez zmiane wskaznikow na dzieci i rodzicow
+			struct BstNode* rightChild = node->right;
+			node->right = rightChild->left;
+			if (rightChild->left != NULL) rightChild->left->parent = node;
+			rightChild->parent = node->parent;
+			//Sprawdzenie czy element jest korzeniem
+			if (node->parent != NULL) {
+				if (node->parent->left == node) node->parent->left = rightChild;
+				else node->parent->right = rightChild;
+			}
+			else {
+				//Zmiana korzenia
+				root = rightChild;
+			}
+			rightChild->left = node;
+			node->parent = rightChild;
+		}
+	}
+	else {
+		return -1;
+	}
+}
+
+//Rownowazenie drzewa metoda DSW
+void dswBalance() {
+	struct BstNode* node = root;
+	while(node != NULL){
+		if (node->left != NULL) {
+			//Rotacja w prawo
+			rotateNodeRight(node);
+			node = node->parent;
+		}
+		else {
+			node = node->right;
+		}
+	}
+	showElements();
+	//Obliczanie ilosci wierzcholkow na poziomach calkowicie zapelnionych
+	int i;
+	int h = binaryLogarithm(count+1);
+	int m = pow(2,h) - 1;
+	node = root;
+	//Petla wstepnie rownowazaca drzewo
+	for (i = 0; i < count - m; i++) {
+		rotateNodeLeft(node);
+		if (node->parent != NULL && node->parent->right != NULL) node = node->parent->right;
+	}
+
+	//Petla rownowazaca drzewo
+	while (m > 1) {
+		m = m / 2;
+		node = root;
+		for (i = 0; i < m; i++) {
+			rotateNodeLeft(node);
+			if(node->parent != NULL && node->parent->right != NULL) node = node->parent->right;
 		}
 	}
 }
