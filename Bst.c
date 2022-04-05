@@ -48,6 +48,9 @@ extern struct BstNode *returnOnlyChild(struct BstNode* deleteNode);
 //Zmienia wskaznik na dziecko w rodzicu nastepnika, przy usuwaniu
 extern void changeKidOfSuccessorsParent(struct BstNode** pointerToRoot, struct BstNode* child, struct BstNode** next);
 
+//Usuwanie wezla
+extern void destructor(struct BstNode* deleteNode, struct BstNode* next, int* count);
+
 // Usuwa wybrany element
 void deleteElement(int value);
 
@@ -189,17 +192,8 @@ void deleteElement(int value) {
 		//Zmiana wskaznikow na dzieci w rodzicu nastepnika
 		changeKidOfSuccessorsParent(pointerToRoot, child, &next);
 
-		//Sprawdzenie czy trzeba zamieniac pozycje nastepnika i usuwanego elementu
-		if (deleteNode != next) {
-			deleteNode->key = next->key;
-			//Zwolnienie pamieci
-			free(next);
-		}
-		else {
-			//Zwolnienie pamieci
-			free(deleteNode);
-		}
-		count--;
+		//Usuwanie wezla
+		destructor(deleteNode, next, &count);
 	}
 	else {
 		printf("Nie ma takiego elementu\n");
