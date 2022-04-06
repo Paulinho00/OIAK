@@ -241,7 +241,7 @@ void print(char* prefix, char* childrenPrefix, struct BstNode *node)
 void rotateLeft(int value) {
 	struct BstNode* node = findPointerToElement(value, root);
 	//Wykonanie rotacji
-	int output = rotateNodeLeft(node);
+	int output = rotateNodeLeft(node, pointerToRoot);
 	if (output == -1) printf("Nie ma takiego elementu\n");
 	else if (output == -2) printf("Niemozliwe jest wykonanie takiej rotacji dla tego elementu\n");
 }
@@ -254,40 +254,6 @@ void rotateRight(int value) {
 	if (output == -1) printf("Nie ma takiego elementu\n");
 	else if(output == -2) printf("Niemozliwe jest wykonanie takiej rotacji dla tego elementu\n");
 	
-}
-
-
-//Rotacja w lewo na wybranym elemencie
-int rotateNodeLeft(struct BstNode* node) {
-	//Sprawdzenie czy dany element istnieje
-	if (node != NULL) {
-		//Sprawdzenie czy jest spelniony warunek konieczny do rotacji
-		if (node->right == NULL) {
-			return -2;
-		}
-		else {
-
-			//Rotacja poprzez zmiane wskaznikow na dzieci i rodzicow
-			struct BstNode* rightChild = node->right;
-			node->right = rightChild->left;
-			if (rightChild->left != NULL) rightChild->left->parent = node;
-			rightChild->parent = node->parent;
-			//Sprawdzenie czy element jest korzeniem
-			if (node->parent != NULL) {
-				if (node->parent->left == node) node->parent->left = rightChild;
-				else node->parent->right = rightChild;
-			}
-			else {
-				//Zmiana korzenia
-				root = rightChild;
-			}
-			rightChild->left = node;
-			node->parent = rightChild;
-		}
-	}
-	else {
-		return -1;
-	}
 }
 
 //Rownowazenie drzewa metoda DSW
@@ -310,7 +276,7 @@ void dswBalance() {
 	node = root;
 	//Petla wstepnie rownowazaca drzewo
 	for (i = 0; i < count - m; i++) {
-		rotateNodeLeft(node);
+		rotateNodeLeft(node, pointerToRoot);
 		if (node->parent != NULL && node->parent->right != NULL) node = node->parent->right;
 	}
 
@@ -319,7 +285,7 @@ void dswBalance() {
 		m = m / 2;
 		node = root;
 		for (i = 0; i < m; i++) {
-			rotateNodeLeft(node);
+			rotateNodeLeft(node, pointerToRoot);
 			if(node->parent != NULL && node->parent->right != NULL) node = node->parent->right;
 		}
 	}

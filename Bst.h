@@ -45,7 +45,7 @@ void dswBalance();
 void rotateLeft(int value);
 
 // Rotacja w lewo na wybranym elemencie
-int rotateNodeLeft(struct BstNode *node);
+extern int rotateNodeLeft(struct BstNode *node, struct BstNode** root);
 
 // Rotacja w prawo na wybranym elemencie
 void rotateRight(int value);

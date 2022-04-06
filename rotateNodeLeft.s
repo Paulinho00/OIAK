@@ -1,8 +1,8 @@
 .text
 
-.global rotateNodeRight
+.global rotateNodeLeft
 
-rotateNodeRight:
+rotateNodeLeft:
 pushl %ebp
 movl %esp, %ebp
 pushl %ebx
@@ -14,14 +14,14 @@ mov 8(%ebp), %eax
 cmpl $0, %eax
 je elementIsNULL
 
-//Sprawdzenie czy istnieje lewe dziecko elementu
-mov 4(%eax), %ecx
+//Sprawdzenie czy istnieje prawe dziecko elementu
+mov 8(%eax), %ecx
 cmpl $0, %ecx
 je rotationNotPossible
 
 //Rotacja
-mov 8(%ecx), %ebx
-mov %ebx, 4(%eax)
+mov 4(%ecx), %ebx
+mov %ebx, 8(%eax)
 
 mov 4(%ecx), %ebx
 cmpl $0, %ebx
@@ -56,7 +56,7 @@ rightChild:
 mov %ecx, 8(%ebx)
 
 changePointersLeftChildAndElement:
-mov %eax, 8(%ecx)
+mov %eax, 4(%ecx)
 mov %ecx, 12(%eax)
 mov $0, %eax
 jmp end
