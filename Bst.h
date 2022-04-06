@@ -39,7 +39,7 @@ void showElements();
 void findElement(int value);
 
 // Rownowazenie drzewa metoda DSW
-void dswBalance();
+extern void dswBalance(struct BstNode** pointerToRoot, int count);
 
 // Rotacja w lewo na wybranym elemencie
 void rotateLeft(int value);

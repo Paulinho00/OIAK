@@ -76,7 +76,7 @@ int main()
 			}
 			findElement(userInput);
 		}; break;
-		case 6: dswBalance(); break;
+		case 6: dswBalance(pointerToRoot, count); break;
 		case 7:{
 			printf("Podaj wartosc ");
 			userInput = readUserInput();
@@ -254,39 +254,4 @@ void rotateRight(int value) {
 	if (output == -1) printf("Nie ma takiego elementu\n");
 	else if(output == -2) printf("Niemozliwe jest wykonanie takiej rotacji dla tego elementu\n");
 	
-}
-
-//Rownowazenie drzewa metoda DSW
-void dswBalance() {
-	struct BstNode* node = root;
-	while(node != NULL){
-		if (node->left != NULL) {
-			//Rotacja w prawo
-			rotateNodeRight(node, pointerToRoot);
-			node = node->parent;
-		}
-		else {
-			node = node->right;
-		}
-	}
-	//Obliczanie ilosci wierzcholkow na poziomach calkowicie zapelnionych
-	int i;
-	int h = binaryLogarithm(count+1);
-	int m = pow(2,h) - 1;
-	node = root;
-	//Petla wstepnie rownowazaca drzewo
-	for (i = 0; i < count - m; i++) {
-		rotateNodeLeft(node, pointerToRoot);
-		if (node->parent != NULL && node->parent->right != NULL) node = node->parent->right;
-	}
-
-	//Petla rownowazaca drzewo
-	while (m > 1) {
-		m = m / 2;
-		node = root;
-		for (i = 0; i < m; i++) {
-			rotateNodeLeft(node, pointerToRoot);
-			if(node->parent != NULL && node->parent->right != NULL) node = node->parent->right;
-		}
-	}
 }
