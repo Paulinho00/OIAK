@@ -1,28 +1,29 @@
 //Funkcje uniwersalne dla różnych typów danych
 
 //Ustawia rodzica dla nowego elementu
-extern void setParentForElement(int AddressOfRoot, int AddressOfParent, int AddressOfNewElement);
+extern void setParentForElement(int addressOfRoot, int addressOfParent, int addressOfNewElement);
 
 //Wyszukuje nastepnik przy usuwaniu
-extern int findNextElement(int* AddressOfPointerToNext, int AddressOfDeleteNode);
+extern int findNextElement(int* addressOfPointerToNext, int addressOfDeleteNode);
 
 //Zwraca wskaznik na jedyne dziecko elementu
-extern int returnOnlyChild(int AddressOfDeleteNode);
+extern int returnOnlyChild(int addressOfDeleteNode);
 
 //Zmienia wskaznik na dziecko w rodzicu nastepnika, przy usuwaniu
-extern void changeKidOfSuccessorsParent(int AddressOfPointerToRoot, int AddressOfChild, int AddressOfNext);
+extern void changeKidOfSuccessorsParent(int addressOfPointerToRoot, int addressOfChild, int addressOfNext);
 
 //Zwalnianie pamieci
-extern void destructor(int AddressOfDeleteNode, int AddressOfNext, int AddressOfCount);
+extern void destructor(int addressOfDeleteNode, int addressOfNext, int addressOfCount);
 
 // Rownowazenie drzewa metoda DSW
-extern void dswBalance(int* AddressOfPointerToRoot, int count);
+extern void dswBalance(int* addressOfPointerToRoot, int count);
 
 // Rotacja w lewo na wybranym elemencie
-extern int rotateNodeLeft(int AddressOfNode, int* AddressOfPointerToRoot);
+extern int rotateNodeLeft(int addressOfNode, int* addressOfPointerToRoot);
 
 // Rotacja w prawo na wybranym elemencie
-extern int rotateNodeRight(int AddressOfNod, int* AddressOfPointerToRoot);
+extern int rotateNodeRight(int addressOfNod, int* addressOfPointerToRoot);
 
 // Usuwa cale drzewo
 void dropTree(struct BstNodeInt *element);
+
