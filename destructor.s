@@ -31,6 +31,7 @@ addl $4, %esp
 jmp end
 
 //Zamian wartosci klucza nastepnika i usuwanego elementu, usuniecie nastepnika
+//POTRZEBNA ZMIANA PRZY DZIALANIACH NA LICZBACH WIEKSZYCH NIZ 32 bity
 notTheSame:
 movl (%eax), %eax
 movl %eax, (%ecx)

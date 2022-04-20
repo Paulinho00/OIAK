@@ -8,6 +8,7 @@ movl %esp, %ebp
 pushl %ebx
 
 //Odczyt wartosci szukanej
+//POTRZEBA DOSTOSOWANIA DO WIELKICH LICZB
 movl %eax, %ebx
 //Odczyt wskaznika na korzen drzewa
 movl 12(%ebp), %ecx
@@ -18,6 +19,7 @@ cmp $0, %ecx
 je end
 
 //Sprawdzenie czy klucz wezla jest wartoscia szukana
+//POTRZEBA FUNKCJI POROWNUJACEJ DUZE LICZBY
 cmp (%ecx), %ebx
 je end
 cmp (%ecx), %ebx

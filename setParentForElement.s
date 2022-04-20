@@ -19,6 +19,7 @@ je newRoot
 
 
 //Sprawdzenie ktorym dzieckiem bedzie nowy element
+//POTRZEBA FUNKCJI POROWNUJACEJ
 mov (%ebx), %edx
 cmpl (%ecx), %edx
 jl rightChild

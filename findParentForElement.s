@@ -21,6 +21,7 @@ je end
 mov %ebx, %ecx
 
 //Wyszukanie nastepnego potencjalnego rodzica
+//POTRZEBA POROWNANIE DUZYCH LICZB
 cmpl (%ebx), %eax
 jg rightChild
 cmpl (%ebx), %eax

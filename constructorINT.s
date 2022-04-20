@@ -8,7 +8,9 @@ pushl %ebp
 movl %esp, %ebp
 pushl %ebx
 
+//TUTAJ POTRZEBNA ZMIANA PRZEKAZYWANIA KLUCZA
 pushl %eax
+//TUTAJ POTRZEBNA ZMIANA NA ELASTYCZNY ROZMIAR KLUCZA
 push $16
 call malloc
 addl $4, %esp
@@ -17,6 +19,7 @@ movl %eax, %ebx
 popl %eax
 
 //Zapisanie klucza nowego elementu
+//TUTAJ POTRZEBNA ZMIANA DLA WIEKSZYCH LICZB
 movl %eax, (%ebx)
 
 //Zapisanie wskaznika na rodzica nowego elementu
