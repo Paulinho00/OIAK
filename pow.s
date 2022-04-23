@@ -13,6 +13,13 @@ mov %ebx, %eax
 //Odczyt wykladnika
 mov 12(%ebp), %ecx
 
+
+cmpl $0, %ecx
+je returnOne
+
+cmpl $1, %ecx
+je end
+
 //Petla obliczajaca potege
 powLoop:
 mull %ebx
@@ -22,8 +29,15 @@ decl %ecx
 cmpl $1, %ecx
 jne powLoop
 
-end:
 movl %ebx, %eax
+jmp end
+
+returnOne:
+movl $1, %eax
+jmp end
+
+
+end:
 pop %ebx
 pop %ebp
 ret
