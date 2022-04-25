@@ -2,6 +2,7 @@
 
 .global pow
 
+//(int base, int exponent)
 pow:
 pushl %ebp
 movl %esp, %ebp
