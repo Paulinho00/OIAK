@@ -36,7 +36,7 @@ add $4, %esp
 
 pushl %eax
 call malloc
-add $4, %eax
+add $4, %esp
 movl %eax, stringAddress
 
 //Licznik znakow w decimal String
@@ -70,12 +70,16 @@ cmpl $'0', %edx
 jne divisionLoop
 
 
-
-inverseString:
 //odwrocenie stringu
+inverseString:
+pushl stringAddress
+call strrev
+add $4, %esp
+
 
 
 end:
+movl stringAddress, %eax
 popl %ebx
 popl %ebp
 ret
