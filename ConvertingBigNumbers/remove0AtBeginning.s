@@ -21,6 +21,9 @@ movl $0, %ecx
 //Licznik petli usuwajacej
 movl $0, %ebx
 
+cmpl $1, 12(%ebp)
+jle endProgram
+
 howMany0:
 xor %eax, %eax
 movb (%edx, %ecx), %eax
@@ -51,6 +54,8 @@ end:
 incl %ebx
 movl $0, (%edx, %ebx)
 movl %edx, %eax
+
+endProgram:
 pop %esi
 pop %ebx
 pop %ebp

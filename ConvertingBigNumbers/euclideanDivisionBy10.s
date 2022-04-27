@@ -19,6 +19,8 @@ call strlen
 popl %ebx
 movl %eax, length
 
+movl $0, remainder
+
 //Licznik petli
 movl $0, %ecx
 

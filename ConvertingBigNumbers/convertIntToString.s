@@ -1,6 +1,6 @@
 .data
 
-stringAdress: .space 4
+stringAddress: .space 4
 binaryString: .space 4
 .text
 
@@ -25,9 +25,53 @@ popl %ebx
 popl %ecx
 movl %eax, binaryString
 
+pushl binaryString
+call strlen
+add $4, %esp
+
+//Obliczenie liczby potrzebnych bajtow w stringu
+pushl %eax
+call returnDigitNumber
+add $4, %esp
+
+pushl %eax
+call malloc
+add $4, %eax
+movl %eax, stringAddress
+
+//Licznik znakow w decimal String
+movl $0, %ebx
+
+//Adres decimal string
+movl stringAddress, %ecx
+
 //petla z algorytmem euklidesa
+divisionLoop:
+pushl %ecx
+pushl binaryString
+call euclideanDivisionBy10
+add $4, %esp
+popl %ecx
+
+addl $48, %eax
+movl %eax, (%ecx, %ebx)
+incl %ebx
+
+pushl %ecx
+pushl binaryString
+call strlen
+add $4, %esp
+popl %ecx
+
+movl binaryString, %eax
+xor %edx, %edx
+movb (%eax), %edx
+cmpl $'0', %edx
+jne divisionLoop
 
 
+
+inverseString:
 //odwrocenie stringu
 
 
