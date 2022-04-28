@@ -1,7 +1,7 @@
 .text
 
 .global setParentForElement
-
+//(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes)
 setParentForElement:
 pushl %ebp
 movl %esp, %ebp
@@ -19,13 +19,20 @@ je newRoot
 
 
 //Sprawdzenie ktorym dzieckiem bedzie nowy element
-//POTRZEBA FUNKCJI POROWNUJACEJ
-mov (%ebx), %edx
-cmpl (%ecx), %edx
-jl rightChild
+pushl %ecx
+pushl 20(%ebp)
+pushl (%ebx)
+pushl (%ecx)
+call compareIntsInMemory
+add $12, %esp
+popl %ecx
 
-cmpl (%ecx), %edx
-jg leftChild
+
+cmpl $1, %eax
+je rightChild
+
+cmpl $-1, %eax
+je leftChild
 
 //Ustawienie elementu jako nowego korzenia
 newRoot:

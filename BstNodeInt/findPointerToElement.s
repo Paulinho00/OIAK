@@ -2,29 +2,37 @@
 
 .global findPointerToElement
 
+//(int* pointerToValue, struct BstNodeInt* root, int bytes)
 findPointerToElement:
 pushl %ebp
 movl %esp, %ebp
 pushl %ebx
 
-//Odczyt wartosci szukanej
-//POTRZEBA DOSTOSOWANIA DO WIELKICH LICZB
-movl %eax, %ebx
+//Odczyt do szukanej liczby, przechowywanej w pamieci
+movl 8(%ebp), %ebx
 //Odczyt wskaznika na korzen drzewa
 movl 12(%ebp), %ecx
 
 nextIteration:
-//Sprwadzenie czy element jest nullem
+//Sprawdzenie czy element jest nullem
 cmp $0, %ecx
 je end
 
 //Sprawdzenie czy klucz wezla jest wartoscia szukana
-//POTRZEBA FUNKCJI POROWNUJACEJ DUZE LICZBY
-cmp (%ecx), %ebx
+pushl %ecx
+pushl 16(%ebp)
+pushl (%ecx)
+pushl %ebx
+call compareIntsInMemory
+popl %ebx
+add $8, %esp
+popl %ecx
+
+cmp $0, %eax
 je end
-cmp (%ecx), %ebx
+cmp $1, %eax
 jg rightChild
-cmp (%ecx), %ebx
+cmp $-1, %eax
 jl leftChild
 
 //Wywolanie kolejnej iteracji petli dla lewego dziecka

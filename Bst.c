@@ -7,6 +7,8 @@
 // Korzen drzewa
 struct BstNodeInt *root = NULL;
 int* pointerToRoot = &root;
+int bytes = 4;
+int* pointerToNumber;
 
 // Liczba wezlow
 int count = 0;
@@ -34,61 +36,56 @@ int main()
 		printf("Podaj odpowiednia liczbe\n");
 
 		// Odczyt wyboru uzytkownika
-		int userInput;
-		userInput = readUserInput();
+		int userChoice;
+		scanf("%d", &userChoice);
 
 		// Uruchomienie odpowiedniej funkcji w zaleznosci od wyboru
-		switch (userInput)
+		switch (userChoice)
 		{
 		case 2:
 		{
+			char* userInput = (char*) malloc(12);
 			printf("Podaj wartosc ");
-			userInput = readUserInput();
-			if (userInput == -1)
-			{
-				break;
-			}
-			addElement(userInput, pointerToRoot, &count);
+			scanf("%s", userInput);
+			pointerToNumber = convertStringToINT(userInput, bytes);
+			free(userInput);
+			addElement(pointerToNumber, pointerToRoot, &count);
 		}; break;
 		case 3:
 		{
+			char* userInput = (char*) malloc(12);
 			printf("Podaj wartosc ");
-			userInput = readUserInput();
-			if (userInput == -1)
-			{
-				break;
-			}
-			deleteElement(userInput, pointerToRoot, &count);
+			scanf("%s", userInput);
+			pointerToNumber = convertStringToINT(userInput, bytes);
+			free(userInput);
+			deleteElement(pointerToNumber, pointerToRoot, &count);
 		}; break;
 		case 4:
 			showElements(); break;
 		case 5:{
+			char* userInput = (char*) malloc(12);
 			printf("Podaj wartosc ");
-			userInput = readUserInput();
-			if (userInput == -1)
-			{
-				break;
-			}
-			findElement(userInput, root);
+			scanf("%s", userInput);
+			free(userInput);
+			pointerToNumber = convertStringToINT(userInput, bytes);
+			findElement(pointerToNumber, root);
 		}; break;
 		case 6: dswBalance(pointerToRoot, count); break;
 		case 7:{
+			char* userInput = (char*) malloc(12);
 			printf("Podaj wartosc ");
-			userInput = readUserInput();
-			if (userInput == -1)
-			{
-				break;
-			}
-			rotateRight(userInput, pointerToRoot);
+			scanf("%s", userInput);
+			free(userInput);
+			pointerToNumber = convertStringToINT(userInput, bytes);
+			rotateRight(pointerToNumber, pointerToRoot);
 		}; break;
 		case 8:{
+			char* userInput = (char*) malloc(12);
 			printf("Podaj wartosc ");
-			userInput = readUserInput();
-			if (userInput == -1)
-			{
-				break;
-			}
-			rotateLeft(userInput, pointerToRoot);
+			scanf("%s", userInput);
+			free(userInput);
+			pointerToNumber = convertStringToINT(userInput, bytes);
+			rotateLeft(pointerToNumber, pointerToRoot);
 		}; break;
 		case 9: changeDataType(); break;
 		case 0:
@@ -100,14 +97,7 @@ int main()
 	}
 }
 
-// Funkcja odczytujaca i sprawdzajaca dane wprowadzone przez uzytkownika
-int readUserInput()
-{
-	// Odczyt wyboru uzytkownika
-	int userInput;
-	scanf("%d", &userInput);
-	return userInput;
-};
+
 
 // Wyswietla zawartosc BST
 void showElements()

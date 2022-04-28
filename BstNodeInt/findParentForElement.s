@@ -2,6 +2,7 @@
 
 .global findParentForElement
 
+//(int* pointerToValue, struct BstNodeInt* root, int bytes)
 findParentForElement:
 pushl %ebp
 movl %esp, %ebp
@@ -9,6 +10,8 @@ pushl %ebx
 
 //Inicjowanie rejestru przechowujacego wskaznik na rodzica
 movl 12(%ebp), %ebx
+
+movl 8(%ebp), %edx
 
 //Rejestr z potencjalnym rodzicem
 movl $0, %ecx
@@ -21,10 +24,19 @@ je end
 mov %ebx, %ecx
 
 //Wyszukanie nastepnego potencjalnego rodzica
-//POTRZEBA POROWNANIE DUZYCH LICZB
-cmpl (%ebx), %eax
-jg rightChild
-cmpl (%ebx), %eax
+pushl %ecx
+pushl 16(%ebp)
+pushl (%ebx)
+pushl %edx
+call compareIntsInMemory
+popl %edx
+addl $8, %esp
+popl %ecx
+
+
+cmpl $1, %eax
+je rightChild
+cmpl $-1, %eax
 jl leftChild
 
 leftChild:

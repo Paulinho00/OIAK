@@ -2,29 +2,29 @@
 #include "BstNodeInt.h"
 
 // Dodaje element do drzewa
-void addElement(int value, int* addressOfPointerToRoot, int* count)
+void addElement(int* pointerToValue, int* addressOfPointerToRoot, int* count)
 {
 	// Sprawdzenie czy nie probujemy dodac duplikatu
-	if (findPointerToElement(value, *addressOfPointerToRoot) != NULL)
+	if (findPointerToElement(pointerToValue, *addressOfPointerToRoot, bytes) != NULL)
 	{
 		printf("Istnieje element o takim kluczu, dodawanie duplikatow jest zabronione\n");
 		return;
 	}
 
 	// Wyszukanie rodzica dla nowego elementu
-	struct BstNodeInt *parent = findParentForElement(value, *addressOfPointerToRoot);
+	struct BstNodeInt *parent = findParentForElement(pointerToValue, *addressOfPointerToRoot, bytes);
 
 	// Tworzenie nowego elementu
-	struct BstNodeInt *newElement = constructorINT(value, parent, count);
+	struct BstNodeInt *newElement = constructorINT(pointerToValue, parent, count);
 
 	//Ustawienie nowego elementu w rodzicu 
-	setParentForElement(addressOfPointerToRoot, parent, newElement);
+	setParentForElement(addressOfPointerToRoot, parent, newElement, bytes);
 }
 
 //Usuwa wybrany element
-void deleteElement(int value, int* addressOfPointerToRoot, int* count) {
+void deleteElement(int* pointerToValue, int* addressOfPointerToRoot, int* count) {
 	//Wyszukanie wskaznika na usuwany element
-	struct BstNodeInt* deleteNode = findPointerToElement(value, *addressOfPointerToRoot);
+	struct BstNodeInt* deleteNode = findPointerToElement(pointerToValue, *addressOfPointerToRoot, bytes);
 	if (deleteNode != NULL) {
 		struct BstNodeInt* next;
 		struct BstNodeInt* child;
@@ -53,20 +53,30 @@ void deleteElement(int value, int* addressOfPointerToRoot, int* count) {
 
 
 //Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
-void findElement(int value, int addressOfRoot) {
+void findElement(int* pointerToValue, int addressOfRoot) {
 	//Wyszukanie wskaznika na element
-	struct BstNodeInt* element = findPointerToElement(value, addressOfRoot);
+	struct BstNodeInt* element = findPointerToElement(pointerToValue, addressOfRoot, bytes);
 	if (element != NULL) {
+		char* number = convertIntToString(pointerToValue,bytes);
 		//Wyswietlenie odpowiedniego komunikatu
-		printf("Element o wartosci : %d\n", value);
+		printf("Element o wartosci : %s\n", number);
 		//Wyswietlenie informacji o rodzicu
-		if (element != addressOfRoot) printf("Rodzic: %d\n",element->parent->key);
+		if (element != addressOfRoot) {
+			number = convertIntToString(element->parent->key, bytes);
+			printf("Rodzic: %s\n",number);
+		}
 		else printf("Rodzic: Brak\n");
 		//Wyswietlenie informacji o lewym nastepniku
-		if (element->left != NULL) printf("Lewy nastepnik: %d\n", element->left->key);
+		if (element->left != NULL) {
+			number = convertIntToString(element->left->key, bytes);
+			printf("Lewy nastepnik: %s\n", number);
+		}
 		else printf("Lewy nastepnik: Brak\n");
 		//Wyswietleie informacji o prawym nastepniku
-		if (element->right != NULL) printf("Prawy nastepnik: %d\n", element->right->key);
+		if (element->right != NULL) {
+			number = convertIntToString(element->right->key, bytes);
+			printf("Prawy nastepnik: %s\n", number);
+		}
 		else printf("Prawy nastepnik: Brak\n\n");
 	}
 	else {
@@ -79,7 +89,9 @@ void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 {
 	if (node != NULL)
 	{
-		printf(" %s[%d]\n", prefix, node->key);
+		char* number = convertIntToString(node->key, bytes);
+		printf(" %s[%s]\n", prefix, number);
+		free(number); //JAK NIE DZIAŁA TO PIERWSZE DO USUNIECIA
 		struct BstNodeInt *next;
 		if (node->left != NULL)
 		{
@@ -119,8 +131,8 @@ void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 }
 
 //Rotacja w lewo na wybranym elemencie
-void rotateLeft(int value, int* addressOfPointerToRoot) {
-	struct BstNodeInt* node = findPointerToElement(value, *addressOfPointerToRoot);
+void rotateLeft(int* pointerToValue, int* addressOfPointerToRoot) {
+	struct BstNodeInt* node = findPointerToElement(pointerToValue, *addressOfPointerToRoot, bytes);
 	//Wykonanie rotacji
 	int output = rotateNodeLeft(node, addressOfPointerToRoot);
 	if (output == -1) printf("Nie ma takiego elementu\n");
@@ -128,8 +140,8 @@ void rotateLeft(int value, int* addressOfPointerToRoot) {
 }
 
 //Rotacja w prawo na wybranym elemencie
-void rotateRight(int value, int* addressOfPointerToRoot) {
-	struct BstNodeInt* node = findPointerToElement(value, *addressOfPointerToRoot);
+void rotateRight(int* pointerToValue, int* addressOfPointerToRoot) {
+	struct BstNodeInt* node = findPointerToElement(pointerToValue, *addressOfPointerToRoot, bytes);
 	//Wykonanie rotacji
 	int output = rotateNodeRight(node, addressOfPointerToRoot);
 	if (output == -1) printf("Nie ma takiego elementu\n");

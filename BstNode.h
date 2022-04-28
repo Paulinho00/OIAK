@@ -1,8 +1,5 @@
 //Funkcje uniwersalne dla różnych typów danych
 
-//Ustawia rodzica dla nowego elementu
-extern void setParentForElement(int addressOfRoot, int addressOfParent, int addressOfNewElement);
-
 //Wyszukuje nastepnik przy usuwaniu
 extern int findNextElement(int* addressOfPointerToNext, int addressOfDeleteNode);
 

@@ -1,11 +1,12 @@
 //Funkcje wykorzystywane jedynie przy liczbach calkowitych 32 bitowych
 
-//DO WYRZUCENIA
+extern int bytes;
+
 // Element w BST
 struct BstNodeInt
 {
 	// Wartosc wierzcholka
-	int key;
+	int* key;
 	// Wskaznik na lewego potomka
 	struct BstNodeInt *left;
 	// Wskaznik na prawego potomka
@@ -15,34 +16,41 @@ struct BstNodeInt
 };
 
 //Konstruktor dla struktury
-extern struct BstNodeInt* constructorINT(int value, struct BstNodeInt* parent, int* count);
+extern struct BstNodeInt* constructorINT(int* pointerToValue, struct BstNodeInt* parent, int* count);
 
 // Znajduje wskaznik na dany element
-extern struct BstNodeInt *findPointerToElement(int value, struct BstNodeInt* root);
+extern struct BstNodeInt *findPointerToElement(int* pointerToValue, struct BstNodeInt* root, int bytes);
 
 //Znajduje wskaznik na rodzica nowego elementu
-extern struct BstNodeInt *findParentForElement(int value, struct BstNodeInt* root);
+extern struct BstNodeInt *findParentForElement(int* pointerToValue, struct BstNodeInt* root, int bytes);
 
-//DO ZROBIENIA FUNKCJA KONWERTERUJACA STRING NA INT I ODWROTNIE
-
-//DO PRZEROBIENIA  W ASM
-void addElement(int value, int* addressOfPointerToRoot, int* count);
+//Dodaje element do drzewa
+void addElement(int* pointerToValue, int* addressOfPointerToRoot, int* count);
 
 //DO PRZEROBIENIA W C
 void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node);
 
 //DO PRZEROBIENIA W ASM
 //Usuwa wybrany element
-void deleteElement(int value, int* addressOfPointerToRoot, int* count);
+void deleteElement(int* pointerToInt, int* addressOfPointerToRoot, int* count);
 
 //DO PRZEROBIENIA W ASM
 // Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
-void findElement(int value, int addressOfRoot);
+void findElement(int* pointerToInt, int addressOfRoot);
 
 //DO PRZEROBIENIA W ASM
 // Rotacja w lewo na wybranym elemencie
-void rotateLeft(int value, int* addressOfPointerToRoot);
+void rotateLeft(int* pointerToInt, int* addressOfPointerToRoot);
 
 //DO PRZEROBIENIA W ASM
 // Rotacja w prawo na wybranym elemencie
-void rotateRight(int value, int* addressOfPointerToRoot);
+void rotateRight(int* pointerToInt, int* addressOfPointerToRoot);
+
+//Ustawia rodzica dla nowego elementu
+extern void setParentForElement(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes);
+
+//Konwersja liczby zapisanej w pamieci na string dziesietny
+extern char* convertIntToString(int* pointerToInt, int bytes);
+
+//Zapis liczby dziesietnej w stringu w pamieci
+extern int* convertStringToINT(char* number, int bytes);
