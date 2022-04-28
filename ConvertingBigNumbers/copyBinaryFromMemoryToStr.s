@@ -27,10 +27,9 @@ movl %eax, %ebx
 movl $0, %edi
 
 //Ustawienie licznika bitow w bajcie
-movl $7, %edx
+movl $0, %edx
 //Ustawienie licznika bajtow
-movl 12(%ebp), %ecx
-decl %ecx
+movl $0, %ecx
 
 //Odczyt adresu na blok pamieci
 movl 8(%ebp), %esi
@@ -52,17 +51,17 @@ movl $'1', (%ebx, %edi)
 incl %edi
 
 endLoop:
-decl %edx
-cmpl $0, %edx
-jl nextByte
+incl %edx
+cmpl $7, %edx
+jg nextByte
 jmp copyLoop
 
 nextByte:
-decl %esi
-decl %ecx
-movl $7, %edx
-cmpl $0, %ecx
-jl remove0FromBeginning
+incl %esi
+incl %ecx
+movl $0, %edx
+cmpl 12(%ebp), %ecx
+je remove0FromBeginning
 jmp copyLoop
 
 remove0FromBeginning:

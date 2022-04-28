@@ -2,6 +2,7 @@
 .data
 counterBits: .long 0
 counterBytes: .space 4
+binaryStringFromDecimalString: .long 4
 
 .text
 
@@ -38,7 +39,11 @@ add $4, %esp
 movl %eax, %ecx
 decl %ecx
 
-movl $0, counterBytes
+movl 12(%ebp), %eax
+movl %eax, counterBytes
+decl counterBytes
+
+movl $7, counterBits
 
 convertingLoop:
 pushl %ecx
@@ -64,13 +69,13 @@ addl $8, %esp
 popl %ecx
 
 incrementCounters:
-incl counterBits
-cmpl $8, counterBits
-jne divideBy2
+decl counterBits
+cmpl $0, counterBits
+jge divideBy2
 
 nextByte:
-movl $0, counterBits
-incl counterBytes
+movl $7, counterBits
+decl counterBytes
 
 divideBy2:
 pushl %ecx
