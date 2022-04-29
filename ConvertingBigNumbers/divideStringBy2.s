@@ -31,13 +31,12 @@ movl %eax, len
 cmpl $1, %eax
 jne dividingLoop
 
-
-cmpl $'0', (%ecx)
+cmpb $'0', (%ecx)
 jne checkForOnlyOne
 je return0
 
 checkForOnlyOne:
-cmpl $'1', (%ecx)
+cmpb $'1', (%ecx)
 jne dividingLoop
 
 return0:

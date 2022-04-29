@@ -11,6 +11,7 @@ pushl %ebp
 movl %esp, %ebp
 pushl %ebx
 pushl %esi
+pushl %edi
 
 //Odczyt wskaznika 
 movl 8(%ebp), %edx
@@ -31,6 +32,9 @@ cmpl $'1', %eax
 je remove0
 
 incl %ecx
+
+cmpl 12(%ebp), %ecx
+je remove0
 jmp howMany0
 
 remove0:
@@ -56,6 +60,7 @@ movl $0, (%edx, %ebx)
 movl %edx, %eax
 
 endProgram:
+popl %edi
 pop %esi
 pop %ebx
 pop %ebp

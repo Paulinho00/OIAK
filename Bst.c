@@ -2,13 +2,14 @@
 #include "BstNodeInt.h"
 #include "BstNode.h"
 #include "Bst.h"
-
+#include "ConvertingBigNumbers/stringFunctions.h"
 
 // Korzen drzewa
 struct BstNodeInt *root = NULL;
 int* pointerToRoot = &root;
-int bytes = 4;
+int bytes = 16;
 int* pointerToNumber;
+int numberOfDigits = 0;
 
 // Liczba wezlow
 int count = 0;
@@ -18,6 +19,7 @@ int main()
 {
 	while (1)
 	{
+		numberOfDigits = returnDigitNumber(bytes*8);
 		// Wyswietlenie opcji w menu
 		switch(dataType){
 			case 0: printf("Typ danych: 4 bajtowa liczba calkowita"); break;
@@ -44,7 +46,7 @@ int main()
 		{
 		case 2:
 		{
-			char* userInput = (char*) malloc(12);
+			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
@@ -53,7 +55,7 @@ int main()
 		}; break;
 		case 3:
 		{
-			char* userInput = (char*) malloc(12);
+			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
@@ -63,7 +65,7 @@ int main()
 		case 4:
 			showElements(); break;
 		case 5:{
-			char* userInput = (char*) malloc(12);
+			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			free(userInput);
@@ -72,7 +74,7 @@ int main()
 		}; break;
 		case 6: dswBalance(pointerToRoot, count); break;
 		case 7:{
-			char* userInput = (char*) malloc(12);
+			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			free(userInput);
@@ -80,7 +82,7 @@ int main()
 			rotateRight(pointerToNumber, pointerToRoot);
 		}; break;
 		case 8:{
-			char* userInput = (char*) malloc(12);
+			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			free(userInput);

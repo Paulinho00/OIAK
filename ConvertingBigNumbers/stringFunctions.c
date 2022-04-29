@@ -1,4 +1,5 @@
 #include <math.h>
+#include "stringFunctions.h"
 
 int returnDigitNumber(int lengthOfBinary){
     double logResult = log(2)/log(10);

@@ -29,7 +29,7 @@ movl $0, %edx
 zeroingLoop:
 movl $0, (%ebx, %edx)
 incl %edx
-cmpl counterBytes, %eax
+cmpl counterBytes, %edx
 jl zeroingLoop
 
 //Odczyt dlugosci stringa
@@ -100,8 +100,11 @@ popl %edx
 cmpl $1, %eax
 jne convertingLoop
 
-movl 8(%ebp), %eax
-movl (%eax), %eax
+pushl %edx
+movl 8(%ebp), %edx
+xor %eax, %eax
+movb (%edx), %eax
+popl %edx
 cmpl $'0', %eax
 jne convertingLoop
 
