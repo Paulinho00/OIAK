@@ -46,9 +46,12 @@ movl %eax, (%ecx)
 jmp end
 
 dividingLoop:
-movl indexOfLetter, %edx
-movb (%ecx, %edx), %edx
+pushl %eax
+xor %edx, %edx
+movl indexOfLetter, %eax
+movb (%ecx, %eax), %edx
 subl $'0', %edx
+popl %eax
 
 //Sprawdzenie czy dana cyfra jest parzysta
 pushl %ecx
@@ -81,14 +84,18 @@ movl %eax, nextAdditive
 
 incl indexOfLetter
 
-movl indexOfLetter, %edx
-movb (%ecx, %edx), %edx
+pushl %eax
+xor %edx, %edx
+movl indexOfLetter, %eax
+movb (%ecx, %eax), %edx
+popl %eax
 
 cmpl $0, %edx
 je checkFor0
 jmp dividingLoop
 
 checkFor0:
+xor %edx, %edx
 movb (%ecx), %edx
 decl len
 movl $0, indexOfLetter

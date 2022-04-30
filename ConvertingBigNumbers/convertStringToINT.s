@@ -29,7 +29,7 @@ movl $0, %edx
 zeroingLoop:
 movl $0, (%ebx, %edx)
 incl %edx
-cmpl counterBytes, %edx
+cmpl 12(%ebp), %edx
 jl zeroingLoop
 
 //Odczyt dlugosci stringa

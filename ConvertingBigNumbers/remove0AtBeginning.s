@@ -45,6 +45,7 @@ movl %esi, newLen
 remove0Loop:
 pushl %ebx
 addl %ecx, %ebx
+xor %eax, %eax
 movb (%edx, %ebx), %eax
 popl %ebx
 movb %eax, (%edx, %ebx)

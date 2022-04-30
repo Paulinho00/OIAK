@@ -91,7 +91,6 @@ void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 	{
 		char* number = convertIntToString(node->key, bytes);
 		printf(" %s[%s]\n", prefix, number);
-		free(number);
 		struct BstNodeInt *next;
 		if (node->left != NULL)
 		{
@@ -128,6 +127,7 @@ void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 			printNode(addToPrefix, addToChildrenPrefix, node->right);
 		}
 	}
+	
 }
 
 //Rotacja w lewo na wybranym elemencie

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include "BstNodeInt.h"
 #include "BstNode.h"
 #include "Bst.h"
@@ -44,6 +45,12 @@ int main()
 		// Uruchomienie odpowiedniej funkcji w zaleznosci od wyboru
 		switch (userChoice)
 		{
+		case 1:{
+			char* fileName = (char*) malloc(20);
+			scanf("%s", fileName);
+			readFromFile(fileName);
+			free(fileName);		
+		} break;
 		case 2:
 		{
 			char* userInput = (char*) malloc(numberOfDigits);
@@ -123,5 +130,34 @@ void dropTree(struct BstNodeInt *element){
 		dropTree(element->right);
 		deleteElement(element->key, pointerToRoot, &count);
 	}
+
+}
+
+void readFromFile(char* fileName){
+	if(root != NULL){
+		dropTree(root);
+	}
+	
+	FILE *file = fopen(fileName, "r");
+
+	if(!file){
+		printf("Blad otwarcia pliku\n");
+		return;
+	}
+
+	int numberOfElements = 0;
+	//Odczyt rozmiaru pojedynczego elementu
+	fscanf(file, "%d", &bytes);
+	int maxLength = returnDigitNumber(bytes*8)+2;
+
+	char* number = (char*) malloc (maxLength);
+	fgets(number, maxLength, file);
+	while(fgets(number, maxLength, file)){
+		int len = strlen(number);
+		if(number[len-1] == '\n' ) number[len-1] = '\0';
+		int* numberInMemory = convertStringToINT(number, bytes);
+		addElement(numberInMemory, pointerToRoot, &count );
+	}
+
 
 }

@@ -14,8 +14,10 @@ add $4, %esp
 decl %eax
 
 //Odczyt ostatniej cyfry w stringu
+movl %eax, %edx
+xor %eax, %eax
 movl 8(%ebp), %ecx
-movb (%ecx, %eax), %eax
+movb (%ecx, %edx), %eax
 
 //Sprawdzenie czy ostatnia cyfra jest podzielna przez 2
 cmpl $'1', %eax

@@ -33,6 +33,7 @@ mull %ebx
 popl %ebx
 
 //Odczyt bitu
+xor %edx, %edx
 movb (%ebx, %ecx), %edx
 
 subl $48, %edx

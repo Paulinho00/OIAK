@@ -24,3 +24,6 @@ extern int rotateNodeRight(int addressOfNod, int* addressOfPointerToRoot);
 // Usuwa cale drzewo
 void dropTree(struct BstNodeInt *element);
 
+//Odczyt drzewa z pliku
+void readFromFile(char* fileName);
+
