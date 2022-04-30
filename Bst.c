@@ -22,7 +22,7 @@ int main()
 		numberOfDigits = returnDigitNumber(bytes*8);
 		// Wyswietlenie opcji w menu
 		switch(dataType){
-			case 0: printf("Typ danych: 4 bajtowa liczba calkowita"); break;
+			case 0: printf("Typ danych: %d bajtowa liczba calkowita", bytes); break;
 		}
 		printf("\nWybierz opcje:\n");
 		printf("1. Odczytaj dane z pliku\n");
@@ -89,7 +89,7 @@ int main()
 			free(userInput);
 			rotateLeft(pointerToNumber, pointerToRoot);
 		}; break;
-		case 9: changeDataType(); break;
+		case 9: changeDataSize(); break;
 		case 0:
 			return;
 		default:
@@ -110,7 +110,18 @@ void showElements()
 }
 
 //Zmiana typu danych
-void changeDataType(){
-	if(dataType < 1) dataType++;
-	else dataType = 0;
+void changeDataSize(){
+	dropTree(root);
+	printf("Podaj nowy rozmiar: ");
+	scanf("%d", &bytes);
+}
+
+// Usuwa cale drzewo
+void dropTree(struct BstNodeInt *element){
+	if(element != NULL){
+		dropTree(element->left);
+		dropTree(element->right);
+		deleteElement(element->key, pointerToRoot, &count);
+	}
+
 }
