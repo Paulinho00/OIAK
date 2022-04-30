@@ -44,9 +44,9 @@ call strlen
 popl %ecx
 
 movl %eax, stringsLength
-cmpl %eax, %edi
-jl secondNumberIsGreater
-jg firstNumberIsGreater
+cmpl %edi, %eax
+jg secondNumberIsGreater
+jl firstNumberIsGreater
 
 movl $0, %edi
 

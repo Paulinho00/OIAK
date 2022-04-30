@@ -31,9 +31,9 @@ popl %ecx
 cmp $0, %eax
 je end
 cmp $1, %eax
-jg rightChild
+je rightChild
 cmp $-1, %eax
-jl leftChild
+je leftChild
 
 //Wywolanie kolejnej iteracji petli dla lewego dziecka
 leftChild:

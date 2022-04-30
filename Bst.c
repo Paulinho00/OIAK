@@ -68,25 +68,25 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
-			free(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
-			findElement(pointerToNumber, root);
+			free(userInput);
+			findElement(pointerToNumber, pointerToRoot);
 		}; break;
 		case 6: dswBalance(pointerToRoot, count); break;
 		case 7:{
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
-			free(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
+			free(userInput);
 			rotateRight(pointerToNumber, pointerToRoot);
 		}; break;
 		case 8:{
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
-			free(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
+			free(userInput);
 			rotateLeft(pointerToNumber, pointerToRoot);
 		}; break;
 		case 9: changeDataType(); break;
