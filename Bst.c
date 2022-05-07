@@ -77,7 +77,7 @@ int main()
 			scanf("%s", userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			findElement(pointerToNumber, pointerToRoot);
+			findElement(pointerToNumber, *pointerToRoot);
 		}; break;
 		case 6: dswBalance(pointerToRoot, count); break;
 		case 7:{
