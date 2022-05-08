@@ -1,4 +1,4 @@
-//Funkcje wykorzystywane jedynie przy liczbach calkowitych 32 bitowych
+//Funkcje wykorzystywane jedynie przy liczbach calkowitych
 
 extern int bytes;
 
@@ -29,22 +29,18 @@ extern struct BstNodeInt *findParentForElement(int* pointerToValue, struct BstNo
 //Dodaje element do drzewa
 void addElement(int* pointerToValue, int* addressOfPointerToRoot, int* count,  int isSigned);
 
-//DO PRZEROBIENIA W C
 void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node);
 
-//DO PRZEROBIENIA W ASM
 //Usuwa wybrany element
 void deleteElement(int* pointerToInt, int* addressOfPointerToRoot, int* count, int isSigned);
 
-//DO PRZEROBIENIA W ASM
 // Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
 void findElement(int* pointerToInt, int addressOfRoot, int isSigned);
 
-//DO PRZEROBIENIA W ASM
 // Rotacja w lewo na wybranym elemencie
 void rotateLeft(int* pointerToInt, int* addressOfPointerToRoot, int isSigned);
 
-//DO PRZEROBIENIA W ASM
+
 // Rotacja w prawo na wybranym elemencie
 void rotateRight(int* pointerToInt, int* addressOfPointerToRoot, int isSigned);
 

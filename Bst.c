@@ -24,6 +24,7 @@ int main()
 		// Wyswietlenie opcji w menu
 		switch(dataType){
 			case 0: printf("Typ danych: %d bajtowa liczba calkowita", bytes); break;
+			case 1: printf("Typ danych: liczba rzeczywista z %d bajtowa czescia calkowita i %d bajtowa czescia ulamkowa", bytes, bytes);
 		}
 		printf("\nWybierz opcje:\n");
 		printf("1. Odczytaj dane z pliku\n");
@@ -34,7 +35,8 @@ int main()
 		printf("6. Wykonaj rownowazenie algorytmem DSW\n");
 		printf("7. Wykonaj rotacje w prawo dla wybranego elementu\n");
 		printf("8. Wykonaj rotacje w lewo dla wybranego elementu\n");
-		printf("9. Zmień typ danych\n");
+		printf("9. Zmień rozmiar danych\n");
+		printf("10. Zmień typ danych\n");
 		printf("0. Cofnij do menu glownego\n");
 		printf("Podaj odpowiednia liczbe\n");
 
@@ -102,6 +104,7 @@ int main()
 			rotateLeft(pointerToNumber, pointerToRoot, isSigned);
 		}; break;
 		case 9: changeDataSize(); break;
+		case 10: changeDataType(); break;
 		case 0:
 			return;
 		default:
@@ -167,4 +170,35 @@ void readFromFile(char* fileName){
 	}
 
 
+}
+
+void changeDataType()
+{
+	while (1)
+	{
+		printf("\nWybierz typ danych:\n");
+		printf("1. Liczba calkowita\n");
+		printf("2. Liczba rzeczywista\n");
+		printf("0. Cofnij\n");
+		printf("Wybierz opcje: ");
+
+		// Odczyt wyboru uzytkownika
+		int userChoice;
+		scanf("%d", &userChoice);
+
+		switch (userChoice)
+		{
+			case 1:{
+				dataType = 0;
+				return;
+			}
+
+			case 2:{
+				dataType = 1;
+				return;
+			}
+			case 0: return;
+			default: printf("Nie ma takiej opcji"); break;
+		}
+	}
 }
