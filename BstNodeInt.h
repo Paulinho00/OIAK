@@ -21,31 +21,31 @@ struct BstNodeInt
 extern struct BstNodeInt* constructorINT(int* pointerToValue, struct BstNodeInt* parent, int* count, int isSigned);
 
 // Znajduje wskaznik na dany element
-extern struct BstNodeInt *findPointerToElement(int* pointerToValue, struct BstNodeInt* root, int bytes, int isSigned);
+extern struct BstNodeInt *findPointerToElementInt(int* pointerToValue, struct BstNodeInt* root, int bytes, int isSigned);
 
 //Znajduje wskaznik na rodzica nowego elementu
-extern struct BstNodeInt *findParentForElement(int* pointerToValue, struct BstNodeInt* root, int bytes, int isSigned);
+extern struct BstNodeInt *findParentForElementInt(int* pointerToValue, struct BstNodeInt* root, int bytes, int isSigned);
 
 //Dodaje element do drzewa
-void addElement(int* pointerToValue, int* addressOfPointerToRoot, int* count,  int isSigned);
+void addElementInt(int* pointerToValue, int* addressOfPointerToRoot, int* count,  int isSigned);
 
-void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node);
+void printNodeInt(char* prefix, char* childrenPrefix, struct BstNodeInt *node);
 
 //Usuwa wybrany element
-void deleteElement(int* pointerToInt, int* addressOfPointerToRoot, int* count, int isSigned);
+void deleteElementInt(int* pointerToInt, int* addressOfPointerToRoot, int* count, int isSigned);
 
 // Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
-void findElement(int* pointerToInt, int addressOfRoot, int isSigned);
+void findElementInt(int* pointerToInt, int addressOfRoot, int isSigned);
 
 // Rotacja w lewo na wybranym elemencie
-void rotateLeft(int* pointerToInt, int* addressOfPointerToRoot, int isSigned);
+void rotateLeftInt(int* pointerToInt, int* addressOfPointerToRoot, int isSigned);
 
 
 // Rotacja w prawo na wybranym elemencie
-void rotateRight(int* pointerToInt, int* addressOfPointerToRoot, int isSigned);
+void rotateRightInt(int* pointerToInt, int* addressOfPointerToRoot, int isSigned);
 
 //Ustawia rodzica dla nowego elementu
-extern void setParentForElement(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes);
+extern void setParentForElementInt(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes);
 
 //Konwersja liczby zapisanej w pamieci na string dziesietny
 extern char* convertIntToString(int* pointerToInt, int bytes);

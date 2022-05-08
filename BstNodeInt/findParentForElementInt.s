@@ -1,9 +1,9 @@
 .text
 
-.global findParentForElement
+.global findParentForElementInt
 
 //(int* pointerToValue, struct BstNodeInt* root, int bytes, int isSigned)
-findParentForElement:
+findParentForElementInt:
 pushl %ebp
 movl %esp, %ebp
 pushl %ebx

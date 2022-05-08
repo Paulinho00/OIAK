@@ -1,9 +1,9 @@
 .text
 
-.global findPointerToElement
+.global findPointerToElementInt
 
-//(int* pointerToValue, struct BstNodeInt* root, int bytes, int isUnsigned)
-findPointerToElement:
+//(int* pointerToValue, struct BstNodeInt* root, int bytes, int isSigned)
+findPointerToElementInt:
 pushl %ebp
 movl %esp, %ebp
 pushl %ebx

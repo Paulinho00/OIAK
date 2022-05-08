@@ -3,29 +3,29 @@
 #include "BstNodeInt.h"
 
 // Dodaje element do drzewa
-void addElement(int* pointerToValue, int* addressOfPointerToRoot,int* count, int isSigned)
+void addElementInt(int* pointerToValue, int* addressOfPointerToRoot,int* count, int isSigned)
 {
 	// Sprawdzenie czy nie probujemy dodac duplikatu
-	if (findPointerToElement(pointerToValue, *addressOfPointerToRoot, bytes, isSigned) != NULL)
+	if (findPointerToElementInt(pointerToValue, *addressOfPointerToRoot, bytes, isSigned) != NULL)
 	{
 		printf("Istnieje element o takim kluczu, dodawanie duplikatow jest zabronione\n");
 		return;
 	}
 
 	// Wyszukanie rodzica dla nowego elementu
-	struct BstNodeInt *parent = findParentForElement(pointerToValue, *addressOfPointerToRoot, bytes, isSigned);
+	struct BstNodeInt *parent = findParentForElementInt(pointerToValue, *addressOfPointerToRoot, bytes, isSigned);
 
 	// Tworzenie nowego elementu
 	struct BstNodeInt *newElement = constructorINT(pointerToValue, parent, count, isSigned);
 
 	//Ustawienie nowego elementu w rodzicu 
-	setParentForElement(addressOfPointerToRoot, parent, newElement, bytes);
+	setParentForElementInt(addressOfPointerToRoot, parent, newElement, bytes);
 }
 
 //Usuwa wybrany element
-void deleteElement(int* pointerToValue, int* addressOfPointerToRoot, int* count, int isSigned) {
+void deleteElementInt(int* pointerToValue, int* addressOfPointerToRoot, int* count, int isSigned) {
 	//Wyszukanie wskaznika na usuwany element
-	struct BstNodeInt* deleteNode = findPointerToElement(pointerToValue, *addressOfPointerToRoot, bytes, isSigned);
+	struct BstNodeInt* deleteNode = findPointerToElementInt(pointerToValue, *addressOfPointerToRoot, bytes, isSigned);
 	if (deleteNode != NULL) {
 		struct BstNodeInt* next;
 		struct BstNodeInt* child;
@@ -54,9 +54,9 @@ void deleteElement(int* pointerToValue, int* addressOfPointerToRoot, int* count,
 
 
 //Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
-void findElement(int* pointerToValue, int addressOfRoot, int isSigned) {
+void findElementInt(int* pointerToValue, int addressOfRoot, int isSigned) {
 	//Wyszukanie wskaznika na element
-	struct BstNodeInt* element = findPointerToElement(pointerToValue, addressOfRoot, bytes, isSigned);
+	struct BstNodeInt* element = findPointerToElementInt(pointerToValue, addressOfRoot, bytes, isSigned);
 	if (element != NULL) {
 		char* number = convertIntToString(pointerToValue,bytes);
 		//Wyswietlenie odpowiedniego komunikatu
@@ -90,7 +90,7 @@ void findElement(int* pointerToValue, int addressOfRoot, int isSigned) {
 }
 
 // Funkcja wypisujaca potomkow danego elementu
-void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
+void printNodeInt(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 {
 	if (node != NULL)
 	{
@@ -109,7 +109,7 @@ void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 				char *addToChildrenPrefix = (char*) malloc(strlen(childrenPrefix)*sizeof(char)+6);
 				strcpy(addToChildrenPrefix, childrenPrefix);
 				strcat(addToChildrenPrefix, " |   ");
-				printNode(addToPrefix, addToChildrenPrefix, node->left);
+				printNodeInt(addToPrefix, addToChildrenPrefix, node->left);
 			}
 			else
 			{
@@ -119,7 +119,7 @@ void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 				char *addToChildrenPrefix = (char*) malloc(strlen(childrenPrefix)*sizeof(char)+6);
 				strcpy(addToChildrenPrefix, childrenPrefix);
 				strcat(addToChildrenPrefix, "      ");
-				printNode(addToPrefix, addToChildrenPrefix, node->left);
+				printNodeInt(addToPrefix, addToChildrenPrefix, node->left);
 			}
 		}
 		if (node->right != NULL)
@@ -130,15 +130,15 @@ void printNode(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 			char *addToChildrenPrefix = (char*) malloc(strlen(childrenPrefix)*sizeof(char)+6);
 			strcpy(addToChildrenPrefix, childrenPrefix);
 			strcat(addToChildrenPrefix, "      ");
-			printNode(addToPrefix, addToChildrenPrefix, node->right);
+			printNodeInt(addToPrefix, addToChildrenPrefix, node->right);
 		}
 	}
 	
 }
 
 //Rotacja w lewo na wybranym elemencie
-void rotateLeft(int* pointerToValue, int* addressOfPointerToRoot, int isSigned) {
-	struct BstNodeInt* node = findPointerToElement(pointerToValue, *addressOfPointerToRoot, bytes, isSigned);
+void rotateLeftInt(int* pointerToValue, int* addressOfPointerToRoot, int isSigned) {
+	struct BstNodeInt* node = findPointerToElementInt(pointerToValue, *addressOfPointerToRoot, bytes, isSigned);
 	//Wykonanie rotacji
 	int output = rotateNodeLeft(node, addressOfPointerToRoot);
 	if (output == -1) printf("Nie ma takiego elementu\n");
@@ -146,8 +146,8 @@ void rotateLeft(int* pointerToValue, int* addressOfPointerToRoot, int isSigned) 
 }
 
 //Rotacja w prawo na wybranym elemencie
-void rotateRight(int* pointerToValue, int* addressOfPointerToRoot, int isSigned) {
-	struct BstNodeInt* node = findPointerToElement(pointerToValue, *addressOfPointerToRoot, bytes, isSigned);
+void rotateRightInt(int* pointerToValue, int* addressOfPointerToRoot, int isSigned) {
+	struct BstNodeInt* node = findPointerToElementInt(pointerToValue, *addressOfPointerToRoot, bytes, isSigned);
 	//Wykonanie rotacji
 	int output = rotateNodeRight(node, addressOfPointerToRoot);
 	if (output == -1) printf("Nie ma takiego elementu\n");

@@ -1,8 +1,8 @@
 .text
 
-.global setParentForElement
+.global setParentForElementInt
 //(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes, isSigned)
-setParentForElement:
+setParentForElementInt:
 pushl %ebp
 movl %esp, %ebp
 pushl %ebx

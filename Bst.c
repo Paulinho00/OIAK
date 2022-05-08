@@ -61,7 +61,7 @@ int main()
 			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			addElement(pointerToNumber, pointerToRoot, &count, isSigned);
+			addElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
 		}; break;
 		case 3:
 		{
@@ -71,7 +71,7 @@ int main()
 			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			deleteElement(pointerToNumber, pointerToRoot, &count, isSigned);
+			deleteElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
 		}; break;
 		case 4:
 			showElements(); break;
@@ -82,7 +82,7 @@ int main()
 			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			findElement(pointerToNumber, *pointerToRoot, isSigned);
+			findElementInt(pointerToNumber, *pointerToRoot, isSigned);
 		}; break;
 		case 6: dswBalance(pointerToRoot, count); break;
 		case 7:{
@@ -92,7 +92,7 @@ int main()
 			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			rotateRight(pointerToNumber, pointerToRoot, isSigned);
+			rotateRightInt(pointerToNumber, pointerToRoot, isSigned);
 		}; break;
 		case 8:{
 			char* userInput = (char*) malloc(numberOfDigits);
@@ -101,7 +101,7 @@ int main()
 			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			rotateLeft(pointerToNumber, pointerToRoot, isSigned);
+			rotateLeftInt(pointerToNumber, pointerToRoot, isSigned);
 		}; break;
 		case 9: changeDataSize(); break;
 		case 10: changeDataType(); break;
@@ -121,7 +121,7 @@ void showElements()
 {
 	printf("\n");
 
-	printNode("","", root);
+	printNodeInt("","", root);
 }
 
 //Zmiana typu danych
@@ -136,7 +136,7 @@ void dropTree(struct BstNodeInt *element){
 	if(element != NULL){
 		dropTree(element->left);
 		dropTree(element->right);
-		deleteElement(element->key, pointerToRoot, &count, element->isSigned);
+		deleteElementInt(element->key, pointerToRoot, &count, element->isSigned);
 	}
 
 }
@@ -166,7 +166,7 @@ void readFromFile(char* fileName){
 		if(number[len-1] == '\n' ) number[len-1] = '\0';
 		int isSigned = formateInput(number);
 		int* numberInMemory = convertStringToINT(number, bytes);
-		addElement(numberInMemory, pointerToRoot, &count, isSigned);
+		addElementInt(numberInMemory, pointerToRoot, &count, isSigned);
 	}
 
 
