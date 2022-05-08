@@ -1,7 +1,7 @@
 .text
 
 .global setParentForElement
-//(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes)
+//(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes, isSigned)
 setParentForElement:
 pushl %ebp
 movl %esp, %ebp
@@ -20,11 +20,13 @@ je newRoot
 
 //Sprawdzenie ktorym dzieckiem bedzie nowy element
 pushl %ecx
+pushl 16(%ebx)
+pushl 16(%ecx)
 pushl 20(%ebp)
 pushl (%ebx)
 pushl (%ecx)
 call compareIntsInMemory
-add $12, %esp
+add $20, %esp
 popl %ecx
 
 

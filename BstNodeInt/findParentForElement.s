@@ -2,7 +2,7 @@
 
 .global findParentForElement
 
-//(int* pointerToValue, struct BstNodeInt* root, int bytes)
+//(int* pointerToValue, struct BstNodeInt* root, int bytes, int isSigned)
 findParentForElement:
 pushl %ebp
 movl %esp, %ebp
@@ -25,12 +25,14 @@ mov %ebx, %ecx
 
 //Wyszukanie nastepnego potencjalnego rodzica
 pushl %ecx
+pushl 16(%ebx)
+pushl 20(%ebp)
 pushl 16(%ebp)
 pushl (%ebx)
 pushl %edx
 call compareIntsInMemory
 popl %edx
-addl $8, %esp
+addl $16, %esp
 popl %ecx
 
 

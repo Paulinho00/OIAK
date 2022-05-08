@@ -2,7 +2,7 @@
 
 .global findPointerToElement
 
-//(int* pointerToValue, struct BstNodeInt* root, int bytes)
+//(int* pointerToValue, struct BstNodeInt* root, int bytes, int isUnsigned)
 findPointerToElement:
 pushl %ebp
 movl %esp, %ebp
@@ -20,12 +20,14 @@ je end
 
 //Sprawdzenie czy klucz wezla jest wartoscia szukana
 pushl %ecx
+pushl 16(%ecx)
+pushl 20(%ebp)
 pushl 16(%ebp)
 pushl (%ecx)
 pushl %ebx
 call compareIntsInMemory
 popl %ebx
-add $8, %esp
+add $16, %esp
 popl %ecx
 
 cmp $0, %eax

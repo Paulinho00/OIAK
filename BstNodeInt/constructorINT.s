@@ -2,7 +2,7 @@
 
 .global constructorINT
 
-//(int* pointerToValue, struct BstNodeInt* parent, int* count)
+//(int* pointerToValue, struct BstNodeInt* parent, int* count, int isSigned)
 constructorINT:
 pushl %ebp
 movl %esp, %ebp
@@ -10,7 +10,7 @@ pushl %ebx
 
 movl 8(%ebp), %eax
 pushl %eax
-push $16
+push $20
 call malloc
 addl $4, %esp
 //Wskaznik na nowy element
@@ -28,8 +28,12 @@ movl %ecx, 12(%ebx)
 movl $0, 4(%ebx)
 movl $0, 8(%ebx)
 
+//Zapisanie informacji o znaku
+movl 20(%ebp), %ecx
+movl %ecx, 16(%ebx)
+
 //Inkrementacja licznika wezlow
-mov 16(%ebp), %ecx
+movl 16(%ebp), %ecx
 incl (%ecx)
 
 mov %ebx, %eax

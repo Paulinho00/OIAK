@@ -56,18 +56,20 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			addElement(pointerToNumber, pointerToRoot, &count);
+			addElement(pointerToNumber, pointerToRoot, &count, isSigned);
 		}; break;
 		case 3:
 		{
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			deleteElement(pointerToNumber, pointerToRoot, &count);
+			deleteElement(pointerToNumber, pointerToRoot, &count, isSigned);
 		}; break;
 		case 4:
 			showElements(); break;
@@ -75,26 +77,29 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			findElement(pointerToNumber, *pointerToRoot);
+			findElement(pointerToNumber, *pointerToRoot, isSigned);
 		}; break;
 		case 6: dswBalance(pointerToRoot, count); break;
 		case 7:{
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			rotateRight(pointerToNumber, pointerToRoot);
+			rotateRight(pointerToNumber, pointerToRoot, isSigned);
 		}; break;
 		case 8:{
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			int isSigned = formateInput(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
-			rotateLeft(pointerToNumber, pointerToRoot);
+			rotateLeft(pointerToNumber, pointerToRoot, isSigned);
 		}; break;
 		case 9: changeDataSize(); break;
 		case 0:
@@ -128,7 +133,7 @@ void dropTree(struct BstNodeInt *element){
 	if(element != NULL){
 		dropTree(element->left);
 		dropTree(element->right);
-		deleteElement(element->key, pointerToRoot, &count);
+		deleteElement(element->key, pointerToRoot, &count, element->isSigned);
 	}
 
 }
@@ -153,10 +158,12 @@ void readFromFile(char* fileName){
 	char* number = (char*) malloc (maxLength);
 	fgets(number, maxLength, file);
 	while(fgets(number, maxLength, file)){
+		if(number[0] == '\n') continue;
 		int len = strlen(number);
 		if(number[len-1] == '\n' ) number[len-1] = '\0';
+		int isSigned = formateInput(number);
 		int* numberInMemory = convertStringToINT(number, bytes);
-		addElement(numberInMemory, pointerToRoot, &count );
+		addElement(numberInMemory, pointerToRoot, &count, isSigned);
 	}
 
 

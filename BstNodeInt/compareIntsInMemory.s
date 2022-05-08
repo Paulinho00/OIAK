@@ -4,8 +4,7 @@ stringsLength: .long 0
 .text
 
 .global compareIntsInMemory
-
-//(int* pointerToOneNumber, int* pointerToSecondNumber, int bytes)
+//(int* pointerToOneNumber, int* pointerToSecondNumber, int bytes, int isFirstNumberUnsigned, int isSecondNumberUnsigned)
 //Zwraca:
 // -1 jeśli druga liczba jest wieksza
 //  0 jeśli są równe
@@ -31,6 +30,14 @@ call copyBinaryFromMemoryToStr
 add $8, %esp
 movl %eax, %ecx
 
+//Porownanie znakow liczb
+movl 20(%ebp), %edi
+movl 24(%ebp), %eax
+
+cmpl %edi, %eax
+jg firstNumberIsGreater
+jl secondNumberIsGreater
+
 //Porownanie dlugosci stringow
 pushl %ecx
 pushl %ebx
@@ -45,8 +52,8 @@ popl %ecx
 
 movl %eax, stringsLength
 cmpl %edi, %eax
-jg secondNumberIsGreater
-jl firstNumberIsGreater
+jg secondNumberIsGreaterCheckSign
+jl firstNumberIsGreaterCheckSign
 
 movl $0, %edi
 
@@ -59,8 +66,8 @@ movb (%ebx, %edi), %edx
 movb (%ecx, %edi), %eax
 
 cmpl %eax, %edx
-jl secondNumberIsGreater
-jg firstNumberIsGreater
+jl secondNumberIsGreaterCheckSign
+jg firstNumberIsGreaterCheckSign
 
 incl %edi
 cmpl stringsLength, %edi
@@ -70,6 +77,18 @@ jl comparingLoop
 areEqual:
 movl $0, %eax
 jmp end
+
+firstNumberIsGreaterCheckSign:
+movl 20(%ebp), %eax
+cmpl $0, %eax
+je firstNumberIsGreater
+jne secondNumberIsGreater
+
+secondNumberIsGreaterCheckSign:
+movl 24(%ebp), %eax
+cmpl $0, %eax
+je secondNumberIsGreater
+jne firstNumberIsGreater
 
 firstNumberIsGreater:
 movl $1, %eax
