@@ -189,11 +189,13 @@ void changeDataType()
 		switch (userChoice)
 		{
 			case 1:{
+				dropTree(root);
 				dataType = 0;
 				return;
 			}
 
 			case 2:{
+				dropTree(root);
 				dataType = 1;
 				return;
 			}
