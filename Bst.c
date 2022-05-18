@@ -58,7 +58,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
-			int isSigned = formateInput(userInput);
+			int isSigned = formateInputWithoutSign(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
 			addElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
@@ -68,7 +68,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
-			int isSigned = formateInput(userInput);
+			int isSigned = formateInputWithoutSign(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
 			deleteElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
@@ -79,7 +79,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
-			int isSigned = formateInput(userInput);
+			int isSigned = formateInputWithoutSign(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
 			findElementInt(pointerToNumber, *pointerToRoot, isSigned);
@@ -89,7 +89,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
-			int isSigned = formateInput(userInput);
+			int isSigned = formateInputWithoutSign(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
 			rotateRightInt(pointerToNumber, pointerToRoot, isSigned);
@@ -98,7 +98,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
-			int isSigned = formateInput(userInput);
+			int isSigned = formateInputWithoutSign(userInput);
 			pointerToNumber = convertStringToINT(userInput, bytes);
 			free(userInput);
 			rotateLeftInt(pointerToNumber, pointerToRoot, isSigned);
@@ -164,7 +164,7 @@ void readFromFile(char* fileName){
 		if(number[0] == '\n') continue;
 		int len = strlen(number);
 		if(number[len-1] == '\n' ) number[len-1] = '\0';
-		int isSigned = formateInput(number);
+		int isSigned = formateInputWithoutSign(number);
 		int* numberInMemory = convertStringToINT(number, bytes);
 		addElementInt(numberInMemory, pointerToRoot, &count, isSigned);
 	}

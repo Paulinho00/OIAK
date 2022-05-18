@@ -19,7 +19,7 @@ cmp $0, %eax
 je end
 
 pushl %ecx
-pushl 16(%ecx)
+pushl 20(%ecx)
 pushl 24(%ebp)
 pushl 20(%ebp)
 pushl (%ecx)
@@ -39,7 +39,7 @@ je leftChild
 //Sprawdzenie czesci ulamkowej
 checkFractionalPart:
 pushl %ecx
-pushl 16(%ecx)
+pushl 20(%ecx)
 pushl 24(%ebp)
 pushl 20(%ebp)
 pushl 4(%ecx)

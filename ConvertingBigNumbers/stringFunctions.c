@@ -20,7 +20,7 @@ void strrev(char* str){
     }
 }
 
-int formateInput(char* str){
+int formateInputWithoutSign(char* str){
     int isSigned = 0;
     if(str[0] == '-') isSigned = 1;
     else return isSigned;
