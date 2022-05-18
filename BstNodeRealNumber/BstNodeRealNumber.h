@@ -21,10 +21,10 @@ struct BstNodeRealNumber
 extern struct BstNodeRealNumber* constructorRealNumberNode(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* parent, int* count, int isSigned);
 
 // Znajduje wskaznik na dany element
-extern struct BstNodeRealNumber *findPointerToElementRealNumber(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* root, int bytes, int isSigned);
+extern struct BstNodeRealNumber* findPointerToElementRealNumber(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* root, int bytes, int isSigned);
 
 //Znajduje wskaznik na rodzica nowego elementu
-extern struct BstNodeRealNumber *findParentForElementRealNumber(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* root, int bytes, int isSigned);
+extern struct BstNodeRealNumber* findParentForElementRealNumber(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* root, int bytes, int isSigned);
 
 //Dodaje element do drzewa
 void addElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, int* addressOfPointerToRoot, int* count,  int isSigned);

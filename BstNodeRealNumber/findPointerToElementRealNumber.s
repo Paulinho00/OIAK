@@ -5,7 +5,7 @@
 //(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeInt* root, int bytes, int isSigned)
 findPointerToElementRealNumber:
 pushl %ebp
-movl %ebp, %esp
+movl %esp, %ebp
 pushl %ebx
 
 //Odczyt czesci calkowitej
@@ -15,7 +15,7 @@ movl 16(%ebp), %ecx
 
 nextIteration:
 //Sprawdzenie czy wskaznik jest nullem/
-cmp $0, %eax
+cmp $0, %ecx
 je end
 
 pushl %ecx

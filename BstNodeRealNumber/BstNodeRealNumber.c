@@ -4,7 +4,7 @@
 
 
 //Dodaje element do drzewa
-void addElementRealNumber(int* pointerToIntPart, int* pointerToFractionalPart, int* addressOfPointerToRoot, int* count,  int isSigned)
+void addElementRealNumber(int* pointerToIntPart, int* pointerToFractionalPart, int *addressOfPointerToRoot, int* count,  int isSigned)
 {    
     // Sprawdzenie czy nie probujemy dodac duplikatu
 	if (findPointerToElementRealNumber(pointerToIntPart, pointerToFractionalPart, *addressOfPointerToRoot, bytes, isSigned) != NULL)
@@ -45,7 +45,7 @@ void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealN
 				char *addToChildrenPrefix = (char*) malloc(strlen(childrenPrefix)*sizeof(char)+6);
 				strcpy(addToChildrenPrefix, childrenPrefix);
 				strcat(addToChildrenPrefix, " |   ");
-				printNodeInt(addToPrefix, addToChildrenPrefix, node->left);
+				printNodeRealNumber(addToPrefix, addToChildrenPrefix, node->left);
 			}
 			else
 			{
@@ -55,7 +55,7 @@ void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealN
 				char *addToChildrenPrefix = (char*) malloc(strlen(childrenPrefix)*sizeof(char)+6);
 				strcpy(addToChildrenPrefix, childrenPrefix);
 				strcat(addToChildrenPrefix, "      ");
-				printNodeInt(addToPrefix, addToChildrenPrefix, node->left);
+				printNodeRealNumber(addToPrefix, addToChildrenPrefix, node->left);
 			}
 		}
 		if (node->right != NULL)
@@ -66,7 +66,7 @@ void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealN
 			char *addToChildrenPrefix = (char*) malloc(strlen(childrenPrefix)*sizeof(char)+6);
 			strcpy(addToChildrenPrefix, childrenPrefix);
 			strcat(addToChildrenPrefix, "      ");
-			printNodeInt(addToPrefix, addToChildrenPrefix, node->right);
+			printNodeRealNumber(addToPrefix, addToChildrenPrefix, node->right);
 		}
 	}
 	

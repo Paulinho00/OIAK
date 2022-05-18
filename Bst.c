@@ -2,15 +2,16 @@
 #include <stdio.h>
 #include "BstNodeInt.h"
 #include "BstNode.h"
+#include "BstNodeRealNumber/BstNodeRealNumber.h"
 #include "Bst.h"
 #include "ConvertingBigNumbers/stringFunctions.h"
 
 // Korzen drzewa
-struct BstNodeInt *root = NULL;
-struct BstNodeRealNumber *rootReal = NULL;
+int root = NULL;
 int* pointerToRoot = &root;
 int bytes = 16;
 int* pointerToNumber;
+int* poitnerToFractionalPart;
 int numberOfDigits = 0;
 
 // Liczba wezlow
@@ -60,9 +61,19 @@ int main()
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			int isSigned = formateInputWithoutSign(userInput);
-			pointerToNumber = convertStringToINT(userInput, bytes);
-			free(userInput);
-			addElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
+			if(dataType == 1){
+				char* floatPart = returnFloatPart(userInput);
+				char* intPart = returnIntPart(userInput);
+				int* pointerToNumber = convertStringToINT(intPart, bytes);
+				int* pointerToFractionalPart = convertStringToINT(floatPart, bytes);
+				free(userInput);
+				addElementRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, &count, isSigned);
+			}
+			else if(dataType==0){
+				pointerToNumber = convertStringToINT(userInput, bytes);
+				free(userInput);
+				addElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
+			}
 		}; break;
 		case 3:
 		{
@@ -122,7 +133,8 @@ void showElements()
 {
 	printf("\n");
 
-	printNodeInt("","", root);
+	if(dataType == 0) printNodeInt("","", root);
+	else if(dataType == 1) printNodeRealNumber("", "", root);
 }
 
 //Zmiana typu danych

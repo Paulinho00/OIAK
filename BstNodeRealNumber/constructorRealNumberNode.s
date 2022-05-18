@@ -27,15 +27,15 @@ movl $0, 8(%ebx)
 movl $0, 12(%ebx)
 
 //Zapisanie wskaznika na rodzica
-movl 12(%ebp), %eax
+movl 16(%ebp), %eax
 movl %eax, 16(%ebx)
 
 //Zapisanie informacji o znaku liczby
-movl 20(%ebp), %eax
+movl 24(%ebp), %eax
 movl %eax, 20(%ebx)
 
 //Inkrementacja licznika wezlow
-movl 16(%ebp), %ecx
+movl 20(%ebp), %ecx
 incl (%ecx)
 
 movl %ebx, %eax

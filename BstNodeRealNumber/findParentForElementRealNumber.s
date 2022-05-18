@@ -23,10 +23,10 @@ movl %ebx, %ecx
 
 //Porownanie czesci calkowitej
 pushl %ecx
-pushl 20(%ecx)
+pushl 20(%ebx)
 pushl 24(%ebp)
 pushl 20(%ebp)
-pushl (%ecx)
+pushl (%ebx)
 pushl 8(%ebp)
 call compareIntsInMemory
 addl $20, %esp
@@ -42,10 +42,10 @@ jl leftChild
 //Sprawdzenie czesci ulamkowej
 checkFractionalPart:
 pushl %ecx
-pushl 20(%ecx)
+pushl 20(%ebx)
 pushl 24(%ebp)
 pushl 20(%ebp)
-pushl 4(%ecx)
+pushl 4(%ebx)
 pushl 12(%ebp)
 call compareIntsInMemory
 addl $20, %esp
@@ -57,11 +57,11 @@ cmpl $-1, %eax
 jl leftChild
 
 leftChild:
-mov 4(%ebx), %ebx
+mov 8(%ebx), %ebx
 jmp findParentLoop
 
 rightChild:
-mov 8(%ebx), %ebx
+mov 12(%ebx), %ebx
 jmp findParentLoop
 
 end:
