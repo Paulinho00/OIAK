@@ -7,6 +7,7 @@
 
 // Korzen drzewa
 struct BstNodeInt *root = NULL;
+struct BstNodeRealNumber *rootReal = NULL;
 int* pointerToRoot = &root;
 int bytes = 16;
 int* pointerToNumber;

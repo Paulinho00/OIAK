@@ -33,3 +33,38 @@ int formateInputWithoutSign(char* str){
     return isSigned;
 
 }
+
+char* returnIntPart(char* str){
+    int len, i, positionOfDot;
+    len = strlen(str);
+    for(i=0; i < len; i++){
+        if(str[i] == '.'){
+            positionOfDot = i;
+            break;
+        }
+    }
+
+    char* intPart = (char*) malloc (positionOfDot);
+    for(i = 0; i < positionOfDot; i++){
+        intPart[i] = str[i];
+    }
+    return intPart;
+}
+
+char* returnFloatPart(char* str){
+    int len, i, positionOfDot;
+    len = strlen(str);
+    for(i=0; i < len; i++){
+        if(str[i] == '.'){
+            positionOfDot = i;
+            break;
+        }
+    }
+
+    char* floatPart = (char*) malloc(len-positionOfDot-1);
+    int j;
+    for(i = positionOfDot+1, j=0; i < len; i++, j++){
+        floatPart[j] = str[i];
+    }
+    return floatPart;
+}
