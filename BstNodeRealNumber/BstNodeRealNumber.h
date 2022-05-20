@@ -1,4 +1,5 @@
 extern int bytes;
+extern int bytesFractionalPart;
 
 // Element w BST
 struct BstNodeRealNumber
@@ -21,10 +22,10 @@ struct BstNodeRealNumber
 extern struct BstNodeRealNumber* constructorRealNumberNode(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* parent, int* count, int isSigned);
 
 // Znajduje wskaznik na dany element
-extern struct BstNodeRealNumber* findPointerToElementRealNumber(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* root, int bytes, int isSigned);
+extern struct BstNodeRealNumber* findPointerToElementRealNumber(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* root, int bytes, int isSigned, int bytesFractionalPart);
 
 //Znajduje wskaznik na rodzica nowego elementu
-extern struct BstNodeRealNumber* findParentForElementRealNumber(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* root, int bytes, int isSigned);
+extern struct BstNodeRealNumber* findParentForElementRealNumber(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeRealNumber* root, int bytes, int isSigned, int bytesFractionalPart);
 
 //Dodaje element do drzewa
 void addElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, int* addressOfPointerToRoot, int* count,  int isSigned);
@@ -45,4 +46,4 @@ void rotateLeftRealNumber(int* pointerToValue, int* pointerToFractionalPart, int
 void rotateRightRealNumber(int* pointerToValue, int* pointerToFractionalPart, int* addressOfPointerToRoot, int isSigned);
 
 //Ustawia rodzica dla nowego elementu
-extern void setParentForElementRealNumber(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes);
+extern void setParentForElementRealNumber(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes, int bytesFractionalPart);

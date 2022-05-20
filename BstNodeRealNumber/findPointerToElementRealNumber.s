@@ -2,7 +2,7 @@
 
 .global findPointerToElementRealNumber
 
-//(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeInt* root, int bytes, int isSigned)
+//(int* pointerToIntValue, int* pointerToFractionalPart, struct BstNodeInt* root, int bytes, int isSigned, int bytesFractionalPart)
 findPointerToElementRealNumber:
 pushl %ebp
 movl %esp, %ebp
@@ -41,7 +41,7 @@ checkFractionalPart:
 pushl %ecx
 pushl 20(%ecx)
 pushl 24(%ebp)
-pushl 20(%ebp)
+pushl 28(%ebp)
 pushl 4(%ecx)
 pushl 12(%ebp)
 call compareIntsInMemory

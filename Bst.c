@@ -10,6 +10,7 @@
 int root = NULL;
 int* pointerToRoot = &root;
 int bytes = 16;
+int bytesFractionalPart = 16;
 int* pointerToNumber;
 int* poitnerToFractionalPart;
 int numberOfDigits = 0;
@@ -63,9 +64,10 @@ int main()
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* floatPart = returnFloatPart(userInput);
+				floatPart = fillBackZeroes(floatPart, bytes);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
-				int* pointerToFractionalPart = convertStringToINT(floatPart, bytes);
+				int* pointerToFractionalPart = convertStringToINT(floatPart, bytesFractionalPart);
 				free(userInput);
 				addElementRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, &count, isSigned);
 			}

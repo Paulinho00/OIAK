@@ -1,26 +1,27 @@
 #include <string.h>
 #include <stdio.h>
 #include "BstNodeRealNumber.h"
+#include "../ConvertingBigNumbers/stringFunctions.h"
 
 
 //Dodaje element do drzewa
 void addElementRealNumber(int* pointerToIntPart, int* pointerToFractionalPart, int *addressOfPointerToRoot, int* count,  int isSigned)
 {    
     // Sprawdzenie czy nie probujemy dodac duplikatu
-	if (findPointerToElementRealNumber(pointerToIntPart, pointerToFractionalPart, *addressOfPointerToRoot, bytes, isSigned) != NULL)
+	if (findPointerToElementRealNumber(pointerToIntPart, pointerToFractionalPart, *addressOfPointerToRoot, bytes, isSigned, bytesFractionalPart) != NULL)
 	{ 
 		printf("Istnieje element o takim kluczu, dodawanie duplikatow jest zabronione\n");
 		return;
 	}
 
     // Wyszukanie rodzica dla nowego elementu
-	struct BstNodeRealNumber *parent = findParentForElementRealNumber(pointerToIntPart, pointerToFractionalPart ,*addressOfPointerToRoot, bytes, isSigned);
+	struct BstNodeRealNumber *parent = findParentForElementRealNumber(pointerToIntPart, pointerToFractionalPart ,*addressOfPointerToRoot, bytes, isSigned, bytesFractionalPart);
 
     //Tworzenie nowego elementu
 	struct BstNodeRealNumber *newElement = constructorRealNumberNode(pointerToIntPart, pointerToFractionalPart, parent, count, isSigned);
 
     //Ustawienie nowego elementu w rodzicu 
-	setParentForElementRealNumber(addressOfPointerToRoot, parent, newElement, bytes);
+	setParentForElementRealNumber(addressOfPointerToRoot, parent, newElement, bytes, bytesFractionalPart);
 
 }
 
@@ -30,7 +31,8 @@ void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealN
 	if (node != NULL)
 	{
 		char* keyInt = convertIntToString(node->keyIntPart, bytes);
-        char* keyFraction = convertIntToString(node->keyFractionalPart, bytes);
+        char* keyFraction = convertIntToString(node->keyFractionalPart, bytesFractionalPart);
+		keyFraction = fillLeadingZeroes(keyFraction, bytes);
 		if(node->isSigned) printf(" %s[-%s.%s]\n", prefix, keyInt, keyFraction);
 		else printf(" %s[%s.%s]\n", prefix, keyInt, keyFraction);
 		struct BstNodeInt *next;

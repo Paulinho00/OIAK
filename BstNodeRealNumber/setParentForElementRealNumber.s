@@ -2,7 +2,7 @@
 
 .global setParentForElementRealNumber
 
-//(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes)
+//(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes, int bytesFractionalPart)
 setParentForElementRealNumber:
 pushl %ebp
 movl %esp, %ebp
@@ -41,7 +41,7 @@ checkFractionalPart:
 pushl %ecx
 pushl 20(%ebx)
 pushl 20(%ecx)
-pushl 20(%ebp)
+pushl 28(%ebp)
 pushl 4(%ebx)
 pushl 4(%ecx)
 call compareIntsInMemory

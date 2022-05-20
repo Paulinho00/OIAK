@@ -68,3 +68,37 @@ char* returnFloatPart(char* str){
     }
     return floatPart;
 }
+
+char* fillLeadingZeroes(char* str, int bytes){
+    int len = strlen(str);
+    int correctLen = returnDigitNumber(bytes*8);
+    char* newString = (char*) malloc (correctLen);
+    int i, j;
+    for(i = 0; i < correctLen-len; i++){
+        newString[i] = '0';
+    }
+    
+    for(j = 0; i < correctLen; i++, j++){
+        newString[i] = str[j];
+    }
+
+    free(str);
+    return newString;
+}
+
+char* fillBackZeroes(char* str, int bytes){
+    int len = strlen(str);
+    int correctLen = returnDigitNumber(bytes*8);
+    char* newString = (char*) malloc (correctLen);
+    int i, j;
+    for(i = 0; i < len; i++){
+        newString[i] = str[i];
+    }
+    
+    for(;i<correctLen;i++){
+        newString[i] = '0';
+    }
+
+    free(str);
+    return newString;
+}
