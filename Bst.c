@@ -14,6 +14,7 @@ int bytesFractionalPart = 16;
 int* pointerToNumber;
 int* poitnerToFractionalPart;
 int numberOfDigits = 0;
+int digitsInFractionalPart = 0;
 
 // Liczba wezlow
 int count = 0;
@@ -27,7 +28,7 @@ int main()
 		// Wyswietlenie opcji w menu
 		switch(dataType){
 			case 0: printf("Typ danych: %d bajtowa liczba calkowita", bytes); break;
-			case 1: printf("Typ danych: liczba rzeczywista z %d bajtowa czescia calkowita i %d bajtowa czescia ulamkowa", bytes, bytes);
+			case 1: printf("Typ danych: liczba rzeczywista z %d bajtowa czescia calkowita i %d cyframi po przecinku", bytes, digitsInFractionalPart);
 		}
 		printf("\nWybierz opcje:\n");
 		printf("1. Odczytaj dane z pliku\n");
@@ -64,7 +65,7 @@ int main()
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* floatPart = returnFloatPart(userInput);
-				floatPart = fillBackZeroes(floatPart, bytes);
+				floatPart = fillBackZeroes(floatPart, bytesFractionalPart-1);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
 				int* pointerToFractionalPart = convertStringToINT(floatPart, bytesFractionalPart);
@@ -83,9 +84,20 @@ int main()
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			int isSigned = formateInputWithoutSign(userInput);
-			pointerToNumber = convertStringToINT(userInput, bytes);
-			free(userInput);
-			deleteElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
+			if(dataType == 1){
+				char* floatPart = returnFloatPart(userInput);
+				floatPart = fillBackZeroes(floatPart, bytesFractionalPart-1);
+				char* intPart = returnIntPart(userInput);
+				int* pointerToNumber = convertStringToINT(intPart, bytes);
+				int* pointerToFractionalPart = convertStringToINT(floatPart, bytesFractionalPart);
+				free(userInput);
+				deleteElementRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, &count, isSigned, bytesFractionalPart);
+			}
+			else if(dataType==0){
+				pointerToNumber = convertStringToINT(userInput, bytes);
+				free(userInput);
+				deleteElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
+			}
 		}; break;
 		case 4:
 			showElements(); break;
@@ -141,24 +153,38 @@ void showElements()
 
 //Zmiana typu danych
 void changeDataSize(){
-	dropTree(root);
+	dropTreeInt(root);
 	printf("Podaj nowy rozmiar: ");
 	scanf("%d", &bytes);
+	if(dataType == 1){
+		printf("Podaj ilosc liczb po przecinku (minimalnie 3): ");
+		scanf("%d", &digitsInFractionalPart );
+		bytesFractionalPart = returnNeededBytes(digitsInFractionalPart);
+	}
 }
 
-// Usuwa cale drzewo
-void dropTree(struct BstNodeInt *element){
+// Usuwa cale drzewo z l. calkowitymi
+void dropTreeInt(struct BstNodeInt *element){
 	if(element != NULL){
-		dropTree(element->left);
-		dropTree(element->right);
+		dropTreeInt(element->left);
+		dropTreeInt(element->right);
 		deleteElementInt(element->key, pointerToRoot, &count, element->isSigned);
 	}
 
 }
 
+//Usuwa cale drzewo z liczbami rzeczywistymi
+void dropTreeRealNumber(struct BstNodeRealNumber *element){
+	if(element != NULL){
+		dropTreeRealNumber(element->left);
+		dropTreeRealNumber(element->right);
+		deleteElementRealNumber(element->keyIntPart, element->keyFractionalPart, pointerToRoot, &count, element->isSigned, bytesFractionalPart);
+	}
+}
+
 void readFromFile(char* fileName){
 	if(root != NULL){
-		dropTree(root);
+		dropTreeInt(root);
 	}
 	
 	FILE *file = fopen(fileName, "r");
@@ -204,14 +230,15 @@ void changeDataType()
 		switch (userChoice)
 		{
 			case 1:{
-				dropTree(root);
+				dropTreeInt(root);
 				dataType = 0;
 				return;
 			}
 
 			case 2:{
-				dropTree(root);
+				dropTreeInt(root);
 				dataType = 1;
+				changeDataSize();
 				return;
 			}
 			case 0: return;

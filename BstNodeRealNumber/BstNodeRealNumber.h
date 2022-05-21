@@ -1,19 +1,20 @@
 extern int bytes;
 extern int bytesFractionalPart;
+extern int digitsInFractionalPart;
 
 // Element w BST
 struct BstNodeRealNumber
 {
 	// Wartosc wierzcholka - czesc calkowita
 	int* keyIntPart;
-    // Wartosc wierzcholka - czesc ulamkowa
-    int* keyFractionalPart;
 	// Wskaznik na lewego potomka
 	struct BstNodeRealNumber *left;
 	// Wskaznik na prawego potomka
 	struct BstNodeRealNumber *right;
 	// Wskaznik na rodzica
 	struct BstNodeRealNumber *parent;
+	// Wartosc wierzcholka - czesc ulamkowa
+    int* keyFractionalPart;
 	//Przechowuje informacje o znaku liczby
 	int isSigned;
 };
@@ -33,7 +34,7 @@ void addElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, int
 void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealNumber *node);
 
 //Usuwa wybrany element
-void deleteElementRealNumber(int* pointerToValue, int* pointerToFractionalPart,  int* addressOfPointerToRoot, int* count, int isSigned);
+void deleteElementRealNumber(int* pointerToValue, int* pointerToFractionalPart,  int* addressOfPointerToRoot, int* count, int isSigned, int bytesFractionalPart);
 
 // Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
 void findElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, int addressOfRoot, int isSigned);
@@ -47,3 +48,14 @@ void rotateRightRealNumber(int* pointerToValue, int* pointerToFractionalPart, in
 
 //Ustawia rodzica dla nowego elementu
 extern void setParentForElementRealNumber(int addressOfRoot, int addressOfParent, int addressOfNewElement, int bytes, int bytesFractionalPart);
+
+// Usuwa cale drzewo z liczba rzeywistymi
+void dropTreeRealNumber(struct BstNodeRealNumber *element);
+
+//Zwalnianie pamieci
+extern void destructorRealNumber(int addressOfDeleteNode, int addressOfNext, int addressOfCount);
+
+//Zmienia wskaznik na dziecko w rodzicu nastepnika, przy usuwaniu
+extern void changeKidOfSuccessorsParentRealNumber(int addressOfPointerToRoot, int addressOfChild, int addressOfNext);
+
+

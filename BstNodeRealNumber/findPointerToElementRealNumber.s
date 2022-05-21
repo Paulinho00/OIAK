@@ -42,7 +42,7 @@ pushl %ecx
 pushl 20(%ecx)
 pushl 24(%ebp)
 pushl 28(%ebp)
-pushl 4(%ecx)
+pushl 16(%ecx)
 pushl 12(%ebp)
 call compareIntsInMemory
 addl $20, %esp
@@ -57,12 +57,12 @@ je leftChild
 
 //Wywolanie kolejnej iteracji petli dla prawego dziecka
 rightChild:
-mov 12(%ecx), %ecx
+mov 8(%ecx), %ecx
 jmp nextIteration
 
 //Wywolanie kolejnej iteracji petli dla lewego dziecka
 leftChild:
-mov 8(%ecx), %ecx
+mov 4(%ecx), %ecx
 jmp nextIteration
 
 

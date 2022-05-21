@@ -42,8 +42,8 @@ pushl %ecx
 pushl 20(%ebx)
 pushl 20(%ecx)
 pushl 28(%ebp)
-pushl 4(%ebx)
-pushl 4(%ecx)
+pushl 16(%ebx)
+pushl 16(%ecx)
 call compareIntsInMemory
 addl $20, %esp
 popl %ecx
@@ -61,12 +61,12 @@ jmp end
 
 //Nowy element lewym dzieckiem
 rightChild:
-movl %ecx, 12(%ebx)
+movl %ecx, 8(%ebx)
 jmp end
 
 //Nowy element prawym dzieckiem
 leftChild:
-movl %ecx, 8(%ebx)
+movl %ecx, 4(%ebx)
 jmp end
 
 end:

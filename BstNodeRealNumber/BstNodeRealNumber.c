@@ -25,6 +25,36 @@ void addElementRealNumber(int* pointerToIntPart, int* pointerToFractionalPart, i
 
 }
 
+//Usuwa wybrany element
+void deleteElementRealNumber(int* pointerToValue, int* pointerToFractionalPart,  int* addressOfPointerToRoot, int* count, int isSigned, int bytesFractionalPart){
+	//Wyszukanie wskaznika na usuwany element
+	struct BstNodeRealNumber* deleteNode = findPointerToElementRealNumber(pointerToValue, pointerToFractionalPart, *addressOfPointerToRoot, bytes, isSigned, bytesFractionalPart );
+	if (deleteNode != NULL) {
+		struct BstNodeRealNumber* next;
+		struct BstNodeRealNumber* child;
+		//Sprawdzenie czy element ma potomka
+		next = (struct BstNodeRealNumber*) findNextElement(&next, deleteNode);
+
+		//Odczyt jedynego potomka nastepnika
+		child = (struct BstNodeRealNumber*) returnOnlyChild(next);
+
+		//Sprawdzenie czy nastepnik ma jakiegos potomka
+		if (child != NULL) {
+			//Dodanie do dziecka rodzica nastepnika, 
+			child->parent = next->parent;
+		}
+
+		//Zmiana wskaznikow na dzieci w rodzicu nastepnika
+		changeKidOfSuccessorsParent(addressOfPointerToRoot, child, &next);
+
+		//Usuwanie wezla
+		destructorRealNumber(deleteNode, next, count);
+	}
+	else {
+		printf("Nie ma takiego elementu\n");
+	}
+}
+
 // Funkcja wypisujaca potomkow danego elementu
 void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealNumber *node)
 {
@@ -32,7 +62,8 @@ void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealN
 	{
 		char* keyInt = convertIntToString(node->keyIntPart, bytes);
         char* keyFraction = convertIntToString(node->keyFractionalPart, bytesFractionalPart);
-		keyFraction = fillLeadingZeroes(keyFraction, bytes);
+		keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+		keyFraction[digitsInFractionalPart] = 0;
 		if(node->isSigned) printf(" %s[-%s.%s]\n", prefix, keyInt, keyFraction);
 		else printf(" %s[%s.%s]\n", prefix, keyInt, keyFraction);
 		struct BstNodeInt *next;

@@ -20,15 +20,15 @@ movl %eax, (%ebx)
 
 //Zapisanie wskaznika na czesc ulamkowa
 movl 12(%ebp), %eax
-movl %eax, 4(%ebx)
+movl %eax, 16(%ebx)
 
 //Ustawienie null na wskazniki na dzieci nowego elementu
+movl $0, 4(%ebx)
 movl $0, 8(%ebx)
-movl $0, 12(%ebx)
 
 //Zapisanie wskaznika na rodzica
 movl 16(%ebp), %eax
-movl %eax, 16(%ebx)
+movl %eax, 12(%ebx)
 
 //Zapisanie informacji o znaku liczby
 movl 24(%ebp), %eax

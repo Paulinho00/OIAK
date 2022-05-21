@@ -45,7 +45,7 @@ void deleteElementInt(int* pointerToValue, int* addressOfPointerToRoot, int* cou
 		changeKidOfSuccessorsParent(addressOfPointerToRoot, child, &next);
 
 		//Usuwanie wezla
-		destructor(deleteNode, next, count);
+		destructorINT(deleteNode, next, count);
 	}
 	else {
 		printf("Nie ma takiego elementu\n");

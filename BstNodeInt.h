@@ -52,3 +52,6 @@ extern char* convertIntToString(int* pointerToInt, int bytes);
 
 //Zapis liczby dziesietnej w stringu w pamieci
 extern int* convertStringToINT(char* number, int bytes);
+
+//Zwalnianie pamieci
+extern void destructorINT(int addressOfDeleteNode, int addressOfNext, int addressOfCount);

@@ -5,9 +5,9 @@ count: .space 4
 
 .text
 
-.global destructor
+.global destructorINT
 
-destructor:
+destructorINT:
 pushl %ebp
 movl %esp, %ebp
 

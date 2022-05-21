@@ -45,7 +45,7 @@ pushl %ecx
 pushl 20(%ebx)
 pushl 24(%ebp)
 pushl 28(%ebp)
-pushl 4(%ebx)
+pushl 16(%ebx)
 pushl 12(%ebp)
 call compareIntsInMemory
 addl $20, %esp
@@ -57,11 +57,11 @@ cmpl $-1, %eax
 jl leftChild
 
 leftChild:
-mov 8(%ebx), %ebx
+mov 4(%ebx), %ebx
 jmp findParentLoop
 
 rightChild:
-mov 12(%ebx), %ebx
+mov 8(%ebx), %ebx
 jmp findParentLoop
 
 end:

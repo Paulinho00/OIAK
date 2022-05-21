@@ -20,6 +20,16 @@ void strrev(char* str){
     }
 }
 
+int returnNeededBytes(int numberOfDigits){
+    int bytes = 1;
+    int decimalDigits = returnDigitNumber(bytes*8);
+    while(decimalDigits < numberOfDigits+1){
+        bytes++;
+        decimalDigits = returnDigitNumber(bytes*8);
+    }
+    return bytes+1;
+}
+
 int formateInputWithoutSign(char* str){
     int isSigned = 0;
     if(str[0] == '-') isSigned = 1;
