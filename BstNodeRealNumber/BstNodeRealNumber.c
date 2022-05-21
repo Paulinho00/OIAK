@@ -104,3 +104,53 @@ void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealN
 	}
 	
 }
+
+// Wyszukiwanie pozycji na ktorym znajduje sie podana wartosc
+void findElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, int addressOfRoot, int isSigned){
+	//Wyszukanie wskaznika na element
+	struct BstNodeRealNumber* element = findPointerToElementRealNumber(pointerToValue, pointerToFractionalPart, addressOfRoot, bytes, isSigned, bytesFractionalPart);
+	if (element != NULL) {
+		char* keyInt = convertIntToString(pointerToValue, bytes);
+        char* keyFraction = convertIntToString(pointerToFractionalPart, bytesFractionalPart);
+		keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+		keyFraction[digitsInFractionalPart] = 0;
+		//Wyswietlenie odpowiedniego komunikatu
+		if(isSigned) printf("Element o wartości: -%s.%s\n", keyInt, keyFraction);
+		else printf("Element o wartości: %s.%s\n", keyInt, keyFraction);
+		//Wyswietlenie informacji o rodzicu
+		if (element != addressOfRoot) {
+			keyInt = convertIntToString(element->parent->keyIntPart, bytes);
+			keyFraction = convertIntToString(element->parent->keyFractionalPart, bytesFractionalPart);
+			keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+			keyFraction[digitsInFractionalPart] = 0;
+			if(element->isSigned) printf("Rodzic: -%s.%s\n", keyInt, keyFraction);
+			else printf("Rodzic: %s.%s\n", keyInt, keyFraction);
+
+		}
+		else printf("Rodzic: Brak\n");
+		//Wyswietlenie informacji o lewym nastepniku
+		if (element->left != NULL) {
+			keyInt = convertIntToString(element->left->keyIntPart, bytes);
+			keyFraction = convertIntToString(element->left->keyFractionalPart, bytesFractionalPart);
+			keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+			keyFraction[digitsInFractionalPart] = 0;
+			if(element->isSigned) printf("Lewy nastepnik: -%s.%s\n", keyInt, keyFraction);
+			else printf("Lewy nastepnik: %s.%s\n", keyInt, keyFraction);
+		}
+		else printf("Lewy nastepnik: Brak\n");
+
+		//Wyswietleie informacji o prawym nastepniku
+		if (element->right != NULL) {
+			keyInt = convertIntToString(element->right->keyIntPart, bytes);
+			keyFraction = convertIntToString(element->right->keyFractionalPart, bytesFractionalPart);
+			keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+			keyFraction[digitsInFractionalPart] = 0;
+			if(element->isSigned) printf("Prawy nastepnik: -%s.%s\n", keyInt, keyFraction);
+			else printf("Prawy nastepnik: %s.%s\n", keyInt, keyFraction);
+		}
+		else printf("Prawy nastepnik: Brak\n\n");
+	}
+	else {
+		printf("Nie ma takiego elementu\n");
+	}
+}

@@ -106,9 +106,20 @@ int main()
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			int isSigned = formateInputWithoutSign(userInput);
-			pointerToNumber = convertStringToINT(userInput, bytes);
-			free(userInput);
-			findElementInt(pointerToNumber, *pointerToRoot, isSigned);
+			if(dataType==1){
+				char* floatPart = returnFloatPart(userInput);
+				floatPart = fillBackZeroes(floatPart, bytesFractionalPart-1);
+				char* intPart = returnIntPart(userInput);
+				int* pointerToNumber = convertStringToINT(intPart, bytes);
+				int* pointerToFractionalPart = convertStringToINT(floatPart, bytesFractionalPart);
+				free(userInput);
+				findElementRealNumber(pointerToNumber, pointerToFractionalPart, *pointerToRoot, isSigned);
+			}
+			else if(dataType==0){
+				pointerToNumber = convertStringToINT(userInput, bytes);
+				free(userInput);
+				findElementInt(pointerToNumber, *pointerToRoot, isSigned);
+			}
 		}; break;
 		case 6: dswBalance(pointerToRoot, count); break;
 		case 7:{

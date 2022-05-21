@@ -37,7 +37,7 @@ je checkFractionalPart
 cmpl $1, %eax
 je rightChild
 cmpl $-1, %eax
-jl leftChild
+je leftChild
 
 //Sprawdzenie czesci ulamkowej
 checkFractionalPart:

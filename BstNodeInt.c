@@ -60,7 +60,8 @@ void findElementInt(int* pointerToValue, int addressOfRoot, int isSigned) {
 	if (element != NULL) {
 		char* number = convertIntToString(pointerToValue,bytes);
 		//Wyswietlenie odpowiedniego komunikatu
-		printf("Element o wartosci : %s\n", number);
+		if(isSigned) printf("Element o wartosci : -%s\n", number);
+		else printf("Element o wartosci : %s\n", number);
 		//Wyswietlenie informacji o rodzicu
 		if (element != addressOfRoot) {
 			number = convertIntToString(element->parent->key, bytes);
