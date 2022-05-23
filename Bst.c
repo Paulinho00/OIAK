@@ -29,6 +29,7 @@ int main()
 		switch(dataType){
 			case 0: printf("Typ danych: %d bajtowa liczba calkowita", bytes); break;
 			case 1: printf("Typ danych: liczba rzeczywista z %d bajtowa czescia calkowita i %d cyframi po przecinku", bytes, digitsInFractionalPart);
+			case 2: printf("Typ danych: 1 bajtowy znak");
 		}
 		printf("\nWybierz opcje:\n");
 		printf("1. Odczytaj dane z pliku\n");
@@ -63,6 +64,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			if(dataType == 2) userInput = convertCharToDecimalString(userInput);
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* fractionPart = returnFloatPart(userInput);
@@ -73,7 +75,7 @@ int main()
 				free(userInput);
 				addElementRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, &count, isSigned);
 			}
-			else if(dataType==0){
+			else if(dataType==0 || dataType== 2){
 				pointerToNumber = convertStringToINT(userInput, bytes);
 				free(userInput);
 				addElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
@@ -84,6 +86,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			if(dataType == 2) userInput = convertCharToDecimalString(userInput);
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* fractionPart = returnFloatPart(userInput);
@@ -94,7 +97,7 @@ int main()
 				free(userInput);
 				deleteElementRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, &count, isSigned, bytesFractionalPart);
 			}
-			else if(dataType==0){
+			else if(dataType==0 || dataType== 2){
 				pointerToNumber = convertStringToINT(userInput, bytes);
 				free(userInput);
 				deleteElementInt(pointerToNumber, pointerToRoot, &count, isSigned);
@@ -181,7 +184,7 @@ void showElements()
 {
 	printf("\n");
 
-	if(dataType == 0) printNodeInt("","", root);
+	if(dataType == 0 || dataType == 2) printNodeInt("","", root);
 	else if(dataType == 1) printNodeRealNumber("", "", root);
 }
 
@@ -286,6 +289,7 @@ void changeDataType()
 		printf("\nWybierz typ danych:\n");
 		printf("1. Liczba calkowita\n");
 		printf("2. Liczba rzeczywista\n");
+		printf("3. Znak\n");
 		printf("0. Cofnij\n");
 		printf("Wybierz opcje: ");
 
@@ -296,17 +300,25 @@ void changeDataType()
 		switch (userChoice)
 		{
 			case 1:{
-				dropTreeInt(root);
+				if(dataType == 1) dropTreeRealNumber(root);
+				if(dataType == 0 || dataType == 2) dropTreeInt(root);
 				dataType = 0;
 				changeDataSize();
 				return;
 			}
 
 			case 2:{
-				dropTreeInt(root);
+				if(dataType == 0 || dataType == 2) dropTreeInt(root);
+				if(dataType == 1) dropTreeRealNumber(root);
 				dataType = 1;
 				changeDataSize();
 				return;
+			}
+			case 3:{
+				if(dataType == 1) dropTreeRealNumber(root);
+				if(dataType == 0 || dataType == 2) dropTreeInt(root);
+				dataType = 2;
+				bytes = 1;
 			}
 			case 0: return;
 			default: printf("Nie ma takiej opcji"); break;

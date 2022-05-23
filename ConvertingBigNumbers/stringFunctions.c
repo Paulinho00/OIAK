@@ -1,5 +1,7 @@
 #include <math.h>
 #include "stringFunctions.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int returnDigitNumber(int lengthOfBinary){
     double logResult = log(2)/log(10);
@@ -111,4 +113,19 @@ char* fillBackZeroes(char* str, int numberOfDigits){
 
     free(str);
     return newString;
+}
+
+char* convertCharToDecimalString(char* str){
+    int asciiValue = str[0];
+    char* decimalString = malloc (3);
+    sprintf(decimalString, "%d", asciiValue);
+    free(str);
+    return decimalString;
+
+}
+
+void convertAsciiValueToChar(char* str){
+    int asciiValue = atoi(str);
+    str[0] = asciiValue;
+    str[1] = '\0';
 }

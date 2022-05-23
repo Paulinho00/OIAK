@@ -2,6 +2,8 @@
 
 extern int bytes;
 
+extern int dataType;
+
 // Element w BST
 struct BstNodeInt
 {

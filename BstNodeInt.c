@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "BstNodeInt.h"
+#include "ConvertingBigNumbers/stringFunctions.h"
 
 // Dodaje element do drzewa
 void addElementInt(int* pointerToValue, int* addressOfPointerToRoot,int* count, int isSigned)
@@ -96,8 +97,11 @@ void printNodeInt(char* prefix, char* childrenPrefix, struct BstNodeInt *node)
 	if (node != NULL)
 	{
 		char* number = convertIntToString(node->key, bytes);
+
+		if(dataType == 2) convertAsciiValueToChar(number);
 		if(node->isSigned) printf(" %s[-%s]\n", prefix, number);
 		else printf(" %s[%s]\n", prefix, number);
+
 		struct BstNodeInt *next;
 		if (node->left != NULL)
 		{

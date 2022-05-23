@@ -6,3 +6,5 @@ char* returnFloatPart(char* str);
 char* fillBackZeroes(char* str, int bytes);
 char* fillLeadingZeroes(char* str, int bytes);
 int returnNeededBytes(int numberOfDigits);
+char* convertCharToDecimalString(char* str);
+void convertAsciiValueToChar(char* str);
