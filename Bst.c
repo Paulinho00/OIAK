@@ -40,8 +40,7 @@ int main()
 		printf("6. Wykonaj rownowazenie algorytmem DSW\n");
 		printf("7. Wykonaj rotacje w prawo dla wybranego elementu\n");
 		printf("8. Wykonaj rotacje w lewo dla wybranego elementu\n");
-		printf("9. Zmień rozmiar danych\n");
-		printf("10. Zmień typ danych\n");
+		printf("9. Zmień typ danych\n");
 		printf("0. Cofnij do menu glownego\n");
 		printf("Podaj odpowiednia liczbe\n");
 
@@ -131,6 +130,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			if(dataType == 2) userInput = convertCharToDecimalString(userInput);
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* fractionPart = returnFloatPart(userInput);
@@ -141,7 +141,7 @@ int main()
 				free(userInput);
 				rotateRightRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, isSigned);
 			}
-			else if(dataType == 0){
+			else if(dataType == 0 || dataType == 2){
 				pointerToNumber = convertStringToINT(userInput, bytes);
 				free(userInput);
 				rotateRightInt(pointerToNumber, pointerToRoot, isSigned);
@@ -151,6 +151,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			if(dataType == 2) userInput = convertCharToDecimalString(userInput);
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* fractionPart = returnFloatPart(userInput);
@@ -161,14 +162,13 @@ int main()
 				free(userInput);
 				rotateLeftRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, isSigned);
 			}
-			else if(dataType == 0){
+			else if(dataType == 0 || dataType == 2){
 				pointerToNumber = convertStringToINT(userInput, bytes);
 				free(userInput);
 				rotateLeftInt(pointerToNumber, pointerToRoot, isSigned);
 			}
 		}; break;
-		case 9: changeDataSize(); break;
-		case 10: changeDataType(); break;
+		case 9: changeDataType(); break;
 		case 0:
 			return;
 		default:
