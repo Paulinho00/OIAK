@@ -1,7 +1,7 @@
 int readUserInput();
 
 // Odczytuje do drzewa, dane z pliku
-void readFromFile(char filename[20]);
+void readFromFileInt(char filename[20]);
 
 //Wyswietla zawartosc BST
 void showElements();

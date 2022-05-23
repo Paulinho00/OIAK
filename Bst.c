@@ -54,7 +54,8 @@ int main()
 		case 1:{
 			char* fileName = (char*) malloc(20);
 			scanf("%s", fileName);
-			readFromFile(fileName);
+			if(dataType == 1) readFromFileRealNumber(fileName);
+			else if(dataType == 0) readFromFileInt(fileName);
 			free(fileName);		
 		} break;
 		case 2:
@@ -65,7 +66,7 @@ int main()
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* fractionPart = returnFloatPart(userInput);
-				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
+				fractionPart = fillBackZeroes(fractionPart, digitsInFractionalPart);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
 				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
@@ -86,7 +87,7 @@ int main()
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* fractionPart = returnFloatPart(userInput);
-				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
+				fractionPart = fillBackZeroes(fractionPart, digitsInFractionalPart);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
 				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
@@ -108,7 +109,7 @@ int main()
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType==1){
 				char* fractionPart = returnFloatPart(userInput);
-				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
+				fractionPart = fillBackZeroes(fractionPart, digitsInFractionalPart);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
 				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
@@ -129,7 +130,7 @@ int main()
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* fractionPart = returnFloatPart(userInput);
-				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
+				fractionPart = fillBackZeroes(fractionPart, digitsInFractionalPart);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
 				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
@@ -149,7 +150,7 @@ int main()
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
 				char* fractionPart = returnFloatPart(userInput);
-				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
+				fractionPart = fillBackZeroes(fractionPart, digitsInFractionalPart);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
 				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
@@ -215,7 +216,7 @@ void dropTreeRealNumber(struct BstNodeRealNumber *element){
 	}
 }
 
-void readFromFile(char* fileName){
+void readFromFileInt(char* fileName){
 	if(root != NULL){
 		dropTreeInt(root);
 	}
@@ -246,6 +247,38 @@ void readFromFile(char* fileName){
 
 }
 
+void readFromFileRealNumber(char* fileName){
+	if(root != NULL){
+		dropTreeRealNumber(root);
+	}
+	
+	FILE *file = fopen(fileName, "r");
+
+	if(!file){
+		printf("Blad otwarcia pliku\n");
+		return;
+	}
+
+	//Odczyt rozmiaru pojedynczego elementu
+	fscanf(file, "%d %d", &bytes, &digitsInFractionalPart);
+	bytesFractionalPart = returnNeededBytes(digitsInFractionalPart);
+	int maxLength = returnDigitNumber(bytes*8)+digitsInFractionalPart+3;
+	char* number = (char*) malloc (maxLength);
+	fgets(number, maxLength, file);
+	while(fgets(number, maxLength, file)){
+		if(number[0] == '\n') continue;
+		int len = strlen(number);
+		if(number[len-1] == '\n' ) number[len-1] = '\0';
+		int isSigned = formateInputWithoutSign(number);
+		char* fractionPart = returnFloatPart(number);
+		fractionPart = fillBackZeroes(fractionPart, digitsInFractionalPart);
+		char* intPart = returnIntPart(number);
+		int* pointerToNumber = convertStringToINT(intPart, bytes);
+		int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
+		addElementRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, &count, isSigned);
+	}
+}
+
 void changeDataType()
 {
 	while (1)
@@ -265,6 +298,7 @@ void changeDataType()
 			case 1:{
 				dropTreeInt(root);
 				dataType = 0;
+				changeDataSize();
 				return;
 			}
 

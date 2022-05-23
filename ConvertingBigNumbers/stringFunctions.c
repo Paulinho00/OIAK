@@ -79,9 +79,9 @@ char* returnFloatPart(char* str){
     return floatPart;
 }
 
-char* fillLeadingZeroes(char* str, int bytes){
+char* fillLeadingZeroes(char* str, int numberOfDigits){
     int len = strlen(str);
-    int correctLen = returnDigitNumber(bytes*8);
+    int correctLen = numberOfDigits;
     char* newString = (char*) malloc (correctLen);
     int i, j;
     for(i = 0; i < correctLen-len; i++){
@@ -96,9 +96,9 @@ char* fillLeadingZeroes(char* str, int bytes){
     return newString;
 }
 
-char* fillBackZeroes(char* str, int bytes){
+char* fillBackZeroes(char* str, int numberOfDigits){
     int len = strlen(str);
-    int correctLen = returnDigitNumber(bytes*8);
+    int correctLen = numberOfDigits;
     char* newString = (char*) malloc (correctLen);
     int i, j;
     for(i = 0; i < len; i++){

@@ -62,11 +62,11 @@ void printNodeRealNumber(char* prefix, char* childrenPrefix, struct BstNodeRealN
 	{
 		char* keyInt = convertIntToString(node->keyIntPart, bytes);
         char* keyFraction = convertIntToString(node->keyFractionalPart, bytesFractionalPart);
-		keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+		keyFraction = fillLeadingZeroes(keyFraction, digitsInFractionalPart);
 		keyFraction[digitsInFractionalPart] = 0;
 		if(node->isSigned) printf(" %s[-%s.%s]\n", prefix, keyInt, keyFraction);
 		else printf(" %s[%s.%s]\n", prefix, keyInt, keyFraction);
-		struct BstNodeInt *next;
+		struct BstNodeRealNumber *next;
 		if (node->left != NULL)
 		{
 			next = node->left;
@@ -112,7 +112,7 @@ void findElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, in
 	if (element != NULL) {
 		char* keyInt = convertIntToString(pointerToValue, bytes);
         char* keyFraction = convertIntToString(pointerToFractionalPart, bytesFractionalPart);
-		keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+		keyFraction = fillLeadingZeroes(keyFraction, digitsInFractionalPart);
 		keyFraction[digitsInFractionalPart] = 0;
 		//Wyswietlenie odpowiedniego komunikatu
 		if(isSigned) printf("Element o wartości: -%s.%s\n", keyInt, keyFraction);
@@ -121,7 +121,7 @@ void findElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, in
 		if (element != addressOfRoot) {
 			keyInt = convertIntToString(element->parent->keyIntPart, bytes);
 			keyFraction = convertIntToString(element->parent->keyFractionalPart, bytesFractionalPart);
-			keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+			keyFraction = fillLeadingZeroes(keyFraction, digitsInFractionalPart);
 			keyFraction[digitsInFractionalPart] = 0;
 			if(element->isSigned) printf("Rodzic: -%s.%s\n", keyInt, keyFraction);
 			else printf("Rodzic: %s.%s\n", keyInt, keyFraction);
@@ -132,7 +132,7 @@ void findElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, in
 		if (element->left != NULL) {
 			keyInt = convertIntToString(element->left->keyIntPart, bytes);
 			keyFraction = convertIntToString(element->left->keyFractionalPart, bytesFractionalPart);
-			keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+			keyFraction = fillLeadingZeroes(keyFraction, digitsInFractionalPart);
 			keyFraction[digitsInFractionalPart] = 0;
 			if(element->isSigned) printf("Lewy nastepnik: -%s.%s\n", keyInt, keyFraction);
 			else printf("Lewy nastepnik: %s.%s\n", keyInt, keyFraction);
@@ -143,7 +143,7 @@ void findElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, in
 		if (element->right != NULL) {
 			keyInt = convertIntToString(element->right->keyIntPart, bytes);
 			keyFraction = convertIntToString(element->right->keyFractionalPart, bytesFractionalPart);
-			keyFraction = fillLeadingZeroes(keyFraction, bytesFractionalPart-1);
+			keyFraction = fillLeadingZeroes(keyFraction, digitsInFractionalPart);
 			keyFraction[digitsInFractionalPart] = 0;
 			if(element->isSigned) printf("Prawy nastepnik: -%s.%s\n", keyInt, keyFraction);
 			else printf("Prawy nastepnik: %s.%s\n", keyInt, keyFraction);

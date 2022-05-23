@@ -15,8 +15,11 @@ extern int rotateNodeRight(int addressOfNod, int* addressOfPointerToRoot);
 // Usuwa cale drzewo z liczbami calkowitymi
 void dropTreeInt(struct BstNodeInt *element);
 
-//Odczyt drzewa z pliku
-void readFromFile(char* fileName);
+//Odczyt drzewa z pliku - liczby calkowite
+void readFromFileInt(char* fileName);
+
+//Odczyt drzewa z pliku - liczby rzeczywiste
+void readFromFileRealNumber(char* fileName);
 
 //Zmienia wskaznik na dziecko w rodzicu nastepnika, przy usuwaniu
 extern void changeKidOfSuccessorsParent(int addressOfPointerToRoot, int addressOfChild, int addressOfNext);
