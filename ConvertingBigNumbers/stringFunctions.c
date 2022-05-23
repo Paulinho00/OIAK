@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Funkcje do manipulacji stringow i obliczania pamieci potrzebnej do przechowywania stringow
+
+//Zwraca ilosc cyfr w liczbie w zapisie dziesietnym dla danej ilosci bitow
 int returnDigitNumber(int lengthOfBinary){
     double logResult = log(2)/log(10);
     double result = logResult*lengthOfBinary;
@@ -11,6 +14,8 @@ int returnDigitNumber(int lengthOfBinary){
     return digits;
 }
 
+
+//Odwraca string
 void strrev(char* str){
     int i, len, temp;
     len = strlen(str);
@@ -22,6 +27,7 @@ void strrev(char* str){
     }
 }
 
+//Zwraca ilosc bajtow potrzebnych do przechowywania liczby o zadanej dlugosci
 int returnNeededBytes(int numberOfDigits){
     int bytes = 1;
     int decimalDigits = returnDigitNumber(bytes*8);
@@ -32,6 +38,7 @@ int returnNeededBytes(int numberOfDigits){
     return bytes+1;
 }
 
+//Usuwanie znaku - ze stringa i zwracanie informacji o ujemnej liczbie
 int formateInputWithoutSign(char* str){
     int isSigned = 0;
     if(str[0] == '-') isSigned = 1;
@@ -46,6 +53,7 @@ int formateInputWithoutSign(char* str){
 
 }
 
+//Zwrocenie czesci calkowitej liczby rzeczywistej
 char* returnIntPart(char* str){
     int len, i, positionOfDot;
     len = strlen(str);
@@ -63,6 +71,7 @@ char* returnIntPart(char* str){
     return intPart;
 }
 
+//Zwrocenie czesci dziesietnej liczby rzeczywistej
 char* returnFloatPart(char* str){
     int len, i, positionOfDot;
     len = strlen(str);
@@ -81,6 +90,7 @@ char* returnFloatPart(char* str){
     return floatPart;
 }
 
+//Wypelnienie zerami czesci rzeczywistej, w celu uzyskania poprawnego rzedu wielkosci
 char* fillLeadingZeroes(char* str, int numberOfDigits){
     int len = strlen(str);
     int correctLen = numberOfDigits;
@@ -98,6 +108,7 @@ char* fillLeadingZeroes(char* str, int numberOfDigits){
     return newString;
 }
 
+//Wypelnienie zerami czesci rzeczywistej, w celu poprawnej konwersji do pamieci
 char* fillBackZeroes(char* str, int numberOfDigits){
     int len = strlen(str);
     int correctLen = numberOfDigits;
@@ -115,6 +126,7 @@ char* fillBackZeroes(char* str, int numberOfDigits){
     return newString;
 }
 
+//Zamiana wartosci ascii znaku na string z liczba dziesietna
 char* convertCharToDecimalString(char* str){
     int asciiValue = str[0];
     char* decimalString = malloc (3);
@@ -124,6 +136,7 @@ char* convertCharToDecimalString(char* str){
 
 }
 
+//Zamiana wartosci ascii w postaci stringa na typ znakowy o tej wartosci
 void convertAsciiValueToChar(char* str){
     int asciiValue = atoi(str);
     str[0] = asciiValue;

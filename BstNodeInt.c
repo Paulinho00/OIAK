@@ -60,12 +60,14 @@ void findElementInt(int* pointerToValue, int addressOfRoot, int isSigned) {
 	struct BstNodeInt* element = findPointerToElementInt(pointerToValue, addressOfRoot, bytes, isSigned);
 	if (element != NULL) {
 		char* number = convertIntToString(pointerToValue,bytes);
+		if(dataType == 2) convertAsciiValueToChar(number);
 		//Wyswietlenie odpowiedniego komunikatu
 		if(isSigned) printf("Element o wartosci : -%s\n", number);
 		else printf("Element o wartosci : %s\n", number);
 		//Wyswietlenie informacji o rodzicu
 		if (element != addressOfRoot) {
 			number = convertIntToString(element->parent->key, bytes);
+			if(dataType == 2) convertAsciiValueToChar(number);
 			if(element->isSigned) printf("Rodzic: -%s\n",number);
 			else printf("Rodzic: %s\n",number);
 
@@ -74,6 +76,7 @@ void findElementInt(int* pointerToValue, int addressOfRoot, int isSigned) {
 		//Wyswietlenie informacji o lewym nastepniku
 		if (element->left != NULL) {
 			number = convertIntToString(element->left->key, bytes);
+			if(dataType == 2) convertAsciiValueToChar(number);
 			if(element->left->isSigned) printf("Lewy nastepnik: -%s\n", number);
 			else printf("Lewy nastepnik: %s\n", number);
 		}
@@ -81,6 +84,7 @@ void findElementInt(int* pointerToValue, int addressOfRoot, int isSigned) {
 		//Wyswietleie informacji o prawym nastepniku
 		if (element->right != NULL) {
 			number = convertIntToString(element->right->key, bytes);
+			if(dataType == 2) convertAsciiValueToChar(number);
 			if(element->right->isSigned) printf("Prawy nastepnik: -%s\n", number);
 			else printf("Prawy nastepnik: %s\n", number);
 		}

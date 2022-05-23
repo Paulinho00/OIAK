@@ -109,6 +109,7 @@ int main()
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
+			if(dataType == 2) userInput = convertCharToDecimalString(userInput);
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType==1){
 				char* fractionPart = returnFloatPart(userInput);
@@ -119,7 +120,7 @@ int main()
 				free(userInput);
 				findElementRealNumber(pointerToNumber, pointerToFractionalPart, *pointerToRoot, isSigned);
 			}
-			else if(dataType==0){
+			else if(dataType==0 || dataType == 2){
 				pointerToNumber = convertStringToINT(userInput, bytes);
 				free(userInput);
 				findElementInt(pointerToNumber, *pointerToRoot, isSigned);
