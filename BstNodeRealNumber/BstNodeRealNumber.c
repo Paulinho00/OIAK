@@ -154,3 +154,22 @@ void findElementRealNumber(int* pointerToValue, int* pointerToFractionalPart, in
 		printf("Nie ma takiego elementu\n");
 	}
 }
+
+// Rotacja w lewo na wybranym elemencie
+void rotateLeftRealNumber(int* pointerToValue, int* pointerToFractionalPart, int* addressOfPointerToRoot, int isSigned){
+	struct BstNodeRealNumber* node = findPointerToElementRealNumber(pointerToValue, pointerToFractionalPart, *addressOfPointerToRoot, bytes, isSigned, bytesFractionalPart);
+	//Wykonanie rotacji
+	int output = rotateNodeLeft(node, addressOfPointerToRoot);
+	if (output == -1) printf("Nie ma takiego elementu\n");
+	else if (output == -2) printf("Niemozliwe jest wykonanie takiej rotacji dla tego elementu\n");
+}
+
+
+// Rotacja w prawo na wybranym elemencie
+void rotateRightRealNumber(int* pointerToValue, int* pointerToFractionalPart, int* addressOfPointerToRoot, int isSigned){
+	struct BstNodeRealNumber* node = findPointerToElementRealNumber(pointerToValue, pointerToFractionalPart, *addressOfPointerToRoot, bytes, isSigned, bytesFractionalPart);
+	//Wykonanie rotacji
+	int output = rotateNodeRight(node, addressOfPointerToRoot);
+	if (output == -1) printf("Nie ma takiego elementu\n");
+	else if (output == -2) printf("Niemozliwe jest wykonanie takiej rotacji dla tego elementu\n");
+}

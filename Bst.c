@@ -64,11 +64,11 @@ int main()
 			scanf("%s", userInput);
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
-				char* floatPart = returnFloatPart(userInput);
-				floatPart = fillBackZeroes(floatPart, bytesFractionalPart-1);
+				char* fractionPart = returnFloatPart(userInput);
+				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
-				int* pointerToFractionalPart = convertStringToINT(floatPart, bytesFractionalPart);
+				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
 				free(userInput);
 				addElementRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, &count, isSigned);
 			}
@@ -85,11 +85,11 @@ int main()
 			scanf("%s", userInput);
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType == 1){
-				char* floatPart = returnFloatPart(userInput);
-				floatPart = fillBackZeroes(floatPart, bytesFractionalPart-1);
+				char* fractionPart = returnFloatPart(userInput);
+				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
-				int* pointerToFractionalPart = convertStringToINT(floatPart, bytesFractionalPart);
+				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
 				free(userInput);
 				deleteElementRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, &count, isSigned, bytesFractionalPart);
 			}
@@ -107,11 +107,11 @@ int main()
 			scanf("%s", userInput);
 			int isSigned = formateInputWithoutSign(userInput);
 			if(dataType==1){
-				char* floatPart = returnFloatPart(userInput);
-				floatPart = fillBackZeroes(floatPart, bytesFractionalPart-1);
+				char* fractionPart = returnFloatPart(userInput);
+				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
 				char* intPart = returnIntPart(userInput);
 				int* pointerToNumber = convertStringToINT(intPart, bytes);
-				int* pointerToFractionalPart = convertStringToINT(floatPart, bytesFractionalPart);
+				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
 				free(userInput);
 				findElementRealNumber(pointerToNumber, pointerToFractionalPart, *pointerToRoot, isSigned);
 			}
@@ -127,18 +127,40 @@ int main()
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			int isSigned = formateInputWithoutSign(userInput);
-			pointerToNumber = convertStringToINT(userInput, bytes);
-			free(userInput);
-			rotateRightInt(pointerToNumber, pointerToRoot, isSigned);
+			if(dataType == 1){
+				char* fractionPart = returnFloatPart(userInput);
+				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
+				char* intPart = returnIntPart(userInput);
+				int* pointerToNumber = convertStringToINT(intPart, bytes);
+				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
+				free(userInput);
+				rotateRightRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, isSigned);
+			}
+			else if(dataType == 0){
+				pointerToNumber = convertStringToINT(userInput, bytes);
+				free(userInput);
+				rotateRightInt(pointerToNumber, pointerToRoot, isSigned);
+			}
 		}; break;
 		case 8:{
 			char* userInput = (char*) malloc(numberOfDigits);
 			printf("Podaj wartosc ");
 			scanf("%s", userInput);
 			int isSigned = formateInputWithoutSign(userInput);
-			pointerToNumber = convertStringToINT(userInput, bytes);
-			free(userInput);
-			rotateLeftInt(pointerToNumber, pointerToRoot, isSigned);
+			if(dataType == 1){
+				char* fractionPart = returnFloatPart(userInput);
+				fractionPart = fillBackZeroes(fractionPart, bytesFractionalPart-1);
+				char* intPart = returnIntPart(userInput);
+				int* pointerToNumber = convertStringToINT(intPart, bytes);
+				int* pointerToFractionalPart = convertStringToINT(fractionPart, bytesFractionalPart);
+				free(userInput);
+				rotateLeftRealNumber(pointerToNumber, pointerToFractionalPart, pointerToRoot, isSigned);
+			}
+			else if(dataType == 0){
+				pointerToNumber = convertStringToINT(userInput, bytes);
+				free(userInput);
+				rotateLeftInt(pointerToNumber, pointerToRoot, isSigned);
+			}
 		}; break;
 		case 9: changeDataSize(); break;
 		case 10: changeDataType(); break;
