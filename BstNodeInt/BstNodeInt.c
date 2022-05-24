@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "BstNodeInt.h"
-#include "ConvertingBigNumbers/stringFunctions.h"
+#include "../ConvertingBigNumbers/stringFunctions.h"
 
 // Dodaje element do drzewa
 void addElementInt(int* pointerToValue, int* addressOfPointerToRoot,int* count, int isSigned)
@@ -77,18 +77,18 @@ void findElementInt(int* pointerToValue, int addressOfRoot, int isSigned) {
 		if (element->left != NULL) {
 			number = convertIntToString(element->left->key, bytes);
 			if(dataType == 2) convertAsciiValueToChar(number);
-			if(element->left->isSigned) printf("Lewy nastepnik: -%s\n", number);
-			else printf("Lewy nastepnik: %s\n", number);
+			if(element->left->isSigned) printf("Lewy potomek: -%s\n", number);
+			else printf("Lewy potomek: %s\n", number);
 		}
-		else printf("Lewy nastepnik: Brak\n");
+		else printf("Lewy potomek: Brak\n");
 		//Wyswietleie informacji o prawym nastepniku
 		if (element->right != NULL) {
 			number = convertIntToString(element->right->key, bytes);
 			if(dataType == 2) convertAsciiValueToChar(number);
-			if(element->right->isSigned) printf("Prawy nastepnik: -%s\n", number);
-			else printf("Prawy nastepnik: %s\n", number);
+			if(element->right->isSigned) printf("Prawy potomek: -%s\n", number);
+			else printf("Prawy potomek: %s\n", number);
 		}
-		else printf("Prawy nastepnik: Brak\n\n");
+		else printf("Prawy potomek: Brak\n\n");
 	}
 	else {
 		printf("Nie ma takiego elementu\n");

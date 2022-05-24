@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-#include "BstNodeInt.h"
+#include "BstNodeInt/BstNodeInt.h"
 #include "BstNode.h"
 #include "BstNodeRealNumber/BstNodeRealNumber.h"
 #include "Bst.h"
