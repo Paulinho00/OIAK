@@ -64,10 +64,11 @@ char* returnIntPart(char* str){
         }
     }
 
-    char* intPart = (char*) malloc (positionOfDot);
+    char* intPart = (char*) malloc (positionOfDot+1);
     for(i = 0; i < positionOfDot; i++){
         intPart[i] = str[i];
     }
+    intPart[i] = '\0';
     return intPart;
 }
 

@@ -55,7 +55,7 @@ int main()
 			char* fileName = (char*) malloc(20);
 			scanf("%s", fileName);
 			if(dataType == 1) readFromFileRealNumber(fileName);
-			else if(dataType == 0) readFromFileInt(fileName);
+			else if(dataType == 0 || dataType == 2) readFromFileInt(fileName);
 			free(fileName);		
 		} break;
 		case 2:
@@ -234,15 +234,17 @@ void readFromFileInt(char* fileName){
 
 	int numberOfElements = 0;
 	//Odczyt rozmiaru pojedynczego elementu
-	fscanf(file, "%d", &bytes);
+	if(dataType == 2) bytes = 1;
+	else fscanf(file, "%d", &bytes);
 	int maxLength = returnDigitNumber(bytes*8)+2;
 
 	char* number = (char*) malloc (maxLength);
-	fgets(number, maxLength, file);
+	if(dataType != 2) fgets(number, maxLength, file);
 	while(fgets(number, maxLength, file)){
 		if(number[0] == '\n') continue;
 		int len = strlen(number);
 		if(number[len-1] == '\n' ) number[len-1] = '\0';
+		if(dataType == 2) number = convertCharToDecimalString(number);
 		int isSigned = formateInputWithoutSign(number);
 		int* numberInMemory = convertStringToINT(number, bytes);
 		addElementInt(numberInMemory, pointerToRoot, &count, isSigned);
