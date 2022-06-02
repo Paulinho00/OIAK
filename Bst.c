@@ -25,6 +25,7 @@ int main()
 	while (1)
 	{
 		numberOfDigits = returnDigitNumber(bytes*8);
+		if(dataType == 1) numberOfDigits += digitsInFractionalPart+1;
 		// Wyswietlenie opcji w menu
 		switch(dataType){
 			case 0: printf("Typ danych: %d bajtowa liczba calkowita", bytes); break;
